@@ -111,7 +111,6 @@ body {
 .brand-icon {
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
     border-radius: var(--radius-sm);
     display: flex;
     align-items: center;
