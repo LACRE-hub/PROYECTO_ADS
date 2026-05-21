@@ -1294,3 +1294,19 @@ body {
             .appointment-notice { flex-direction: column; }
             .appt-contact-item { flex: 1 1 100%; }
         }
+
+        .hero-img-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 330px;
+            padding: 30px;
+        }
+
+        .hero-logo-img {
+            width: 320px;
+            max-width: 90%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
