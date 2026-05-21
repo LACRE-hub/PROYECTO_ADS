@@ -360,7 +360,7 @@ body {
 
 .portal-doctor {
     border-color: #a7f3d0;
-    box-shadow: 0 0 0 1px #a7f3d0;
+    box-shadow: 0 0 0 1px #3a87e5;
 }
 
 .portal-admin{
@@ -370,8 +370,24 @@ body {
 
 .portal-patient{
     border-color: #bfdbfe;
-    box-shadow: 0 0 0 1px #3a87e5;
+    box-shadow: 0 0 0 1px #a7f3d0;
 }
+
+.portal-worker{
+    border-color: #fcd9b6;
+    box-shadow: 0 0 0 1px #a16a44;
+}
+
+.portal-nurse{
+    border-color: #e9d5ff;
+    box-shadow: 0 0 0 1px #7c3aed;
+}
+
+.portal-secretary{
+    border-color: #fee2e2;
+    box-shadow: 0 0 0 1px #b91c1c;
+}
+
 
 .portal-badge {
     position: absolute;
@@ -400,9 +416,12 @@ body {
     margin-bottom: 1.25rem;
 }
 
-.portal-patient .portal-icon { background: #dbeafe; color: #2563eb; }
-.portal-doctor  .portal-icon { background: #d1fae5; color: #059669; }
+.portal-patient .portal-icon { background:  #d1fae5; color:  #059669; }
+.portal-doctor  .portal-icon { background: #dbeafe; color:  #2563eb; }
 .portal-admin   .portal-icon { background: #fef3c7; color: #d97706; }
+.portal-worker .portal-icon { background: #a16a44; color: #ffffff; }
+.portal-nurse   .portal-icon { background: #ede9fe; color: #7c3aed; }
+.portal-secretary .portal-icon { background: #fef2f2; color: #b91c1c; }
 
 .portal-card h5 {
     font-size: 1.15rem;
@@ -471,19 +490,39 @@ body {
 }
 
 .btn-portal-patient {
-    background: #2563eb;
+    background: #059669;
     border-color: transparent;
     color: white;
 }
 
 .btn-portal-doctor {
-    background: #059669;
+    background:  #2563eb;
     border-color: transparent;
     color: white;
 }
 
 .btn-portal-admin {
     background: #d97706;
+    border-color: transparent;
+    color: white;
+}
+
+
+.btn-portal-worker{
+    background: #a16a44;
+    border-color: transparent;
+    color: white;
+}
+
+
+.btn-portal-nurse {
+    background: #7c3aed;
+    border-color: transparent;
+    color: white;
+}
+
+.btn-portal-secretary {
+    background: #b91c1c;
     border-color: transparent;
     color: white;
 }
