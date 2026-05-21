@@ -43,6 +43,8 @@ body {
     line-height: 1.65;
     overflow-x: hidden;
     background: var(--white);
+   max-width: 1620px;
+    margin: 0 auto;
 }
 
 /* ── Utilities ── */

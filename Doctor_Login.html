@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <title>Admin Login — MediCore HMS</title>
+    <title>Doctor Login — MediCore HMS</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -25,7 +25,7 @@
     />
 
     <!-- Login CSS (nuevo archivo, no sobreescribe style.css) -->
-    <link rel="stylesheet" href="css/admin_login.css" />
+    <link rel="stylesheet" href="css/doctor_login.css" />
   </head>
 
   <body class="login-body">
@@ -127,9 +127,9 @@
           <!-- Header -->
           <div class="form-header">
             <div class="form-icon-wrap">
-              <i class="fas fa-user-shield"></i>
+              <i class="fas fa-user-md"></i>
             </div>
-            <h1 class="form-title">Admin Login</h1>
+            <h1 class="form-title">Doctor Login</h1>
             <p class="form-subtitle">
               Restricted access — authorized personnel only
             </p>
@@ -144,16 +144,16 @@
           </div>
 
           <!-- Form -->
-          <form id="adminLoginForm" novalidate>
+          <form id="doctorLoginForm" novalidate>
             <div class="field-group">
-              <label for="adminEmail" class="field-label">
+              <label for="doctorEmail" class="field-label">
                 <i class="fas fa-envelope me-2"></i>Email Address
               </label>
               <input
                 type="email"
-                id="adminEmail"
+                id="doctorEmail"
                 class="field-input"
-                placeholder="admin@medicorehms.com"
+                placeholder="doctor@medicorehms.com"
                 autocomplete="username"
                 required
               />
@@ -161,7 +161,7 @@
             </div>
 
             <div class="field-group">
-              <label for="adminPassword" class="field-label">
+              <label for="doctorPassword" class="field-label">
                 <i class="fas fa-lock me-2"></i>Password
               </label>
               <div class="input-password-wrap">
@@ -224,8 +224,8 @@
             <a href="#" class="portal-link portal-link-patient">
               <i class="fas fa-user me-2"></i>Patient Portal
             </a>
-            <a href="Doctor_Login.html" class="portal-link portal-link-doctor">
-              <i class="fas fa-user-md me-2"></i>Doctor Portal
+            <a href="Admin_Login.html" class="portal-link portal-link-admin">
+              <i class="fas fa-user-md me-2"></i>Admin Portal
             </a>
             <a href="#" class="portal-link portal-link-worker">
               <i class="fas fa-warehouse me-2"></i>Worker Portal
