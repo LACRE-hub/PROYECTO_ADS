@@ -40,6 +40,11 @@
                     <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item"><a class="nav-link" href="#logins">Portals</a></li>
+                    <li class="nav-item ms-2 d-flex align-items-center">
+                        <button class="btn btn-outline-secondary nav-theme-toggle" id="themeToggleBtn" type="button" aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
                     <li class="nav-item ms-lg-3">
                         <a class="btn btn-primary nav-cta" href="#contact" id="bookAppointmentBtn">
                             <i class="fas fa-calendar-plus me-2"></i>Book Appointment
@@ -369,27 +374,27 @@
                 </div>
                 <div class="appt-notice-body">
                     <p class="appt-notice-title">
-                        <i class="fas fa-info-circle me-2"></i>¿Quieres agendar una cita?
+                        <i class="fas fa-info-circle me-2"></i>Want to schedule an appointment?
                     </p>
                     <p class="appt-notice-desc">
-                        Las citas médicas son gestionadas <strong>exclusivamente</strong> por nuestra Área Secretarial. Contáctanos directamente por cualquiera de estos medios:
+                        Medical appointments are managed <strong>exclusively</strong> by our Secretarial Area. Contact us directly through one of these channels:
                     </p>
                     <div class="appt-notice-contacts">
                         <a href="mailto:area_secretaria_medichealth@medic.com" class="appt-contact-item">
                             <span class="appt-contact-icon"><i class="fas fa-envelope"></i></span>
                             <div>
-                                <span class="appt-contact-label">Correo electrónico</span>
+                                <span class="appt-contact-label">Email</span>
                                 <span class="appt-contact-value">area_secretaria_medichealth@medic.com</span>
                             </div>
                         </a>
                         <a href="tel:+15551234567" class="appt-contact-item">
                             <span class="appt-contact-icon"><i class="fas fa-phone-alt"></i></span>
                             <div>
-                                <span class="appt-contact-label">Teléfono</span>
+                                <span class="appt-contact-label">Phone</span>
                                 <span class="appt-contact-value">+1 (555) 123-4567</span>
                             </div>
                         </a>
-                        <p> Caso contrario, presentate en las intalaciones y dirigete con la secretaria en turno para agendar tu cita.</p>
+                        <p>If you prefer, visit our facilities and speak with the secretary on duty to schedule your appointment.</p>
                     </div>
                 </div>
             </div>
@@ -429,9 +434,9 @@
                         <h5>Worker Portal</h5>
                         <p>Access warehouse, cash desk and pharmacy workflows with quick shift management tools.</p>
                         <ul class="portal-features">
-                            <li><i class="fas fa-check"></i> Manage almacén inventory</li>
-                            <li><i class="fas fa-check"></i> Process caja and billing</li>
-                            <li><i class="fas fa-check"></i> Track farmacia orders</li>
+                            <li><i class="fas fa-check"></i> Manage warehouse inventory</li>
+                            <li><i class="fas fa-check"></i> Process cash desk and billing</li>
+                            <li><i class="fas fa-check"></i> Track pharmacy orders</li>
                         </ul>
                         <a href="Worker_Login.html" class="btn btn-portal btn-portal-worker">
                             Worker Login <i class="fas fa-arrow-right ms-2"></i>
@@ -553,20 +558,65 @@
     
 
     <script>
-        /* Scroll to contact + highlight appointment banner when "Book Appointment" is clicked */
-        document.getElementById('bookAppointmentBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            const contactSection = document.getElementById('contact');
-            const notice = document.getElementById('appointmentNotice');
+        document.addEventListener('DOMContentLoaded', function() {
+            const bookAppointmentBtn = document.getElementById('bookAppointmentBtn');
+            const themeToggleBtn = document.getElementById('themeToggleBtn');
+            const rootBody = document.body;
+            let savedTheme = null;
 
-            contactSection.scrollIntoView({ behavior: 'smooth' });
+            try {
+                savedTheme = localStorage.getItem('medicoreTheme');
+            } catch (error) {
+                savedTheme = null;
+            }
 
-            setTimeout(() => {
-                notice.classList.remove('highlight-pulse');
-                void notice.offsetWidth; /* reflow to restart animation */
-                notice.classList.add('highlight-pulse');
-                notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 600);
+            const defaultTheme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+            const applyTheme = (theme) => {
+                const isDark = theme === 'dark';
+                rootBody.classList.toggle('dark-mode', isDark);
+
+                if (themeToggleBtn) {
+                    themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+                    themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+                }
+
+                try {
+                    localStorage.setItem('medicoreTheme', theme);
+                } catch (error) {
+                    // ignore localStorage errors in restricted environments
+                }
+            };
+
+            if (bookAppointmentBtn) {
+                bookAppointmentBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const contactSection = document.getElementById('contact');
+                    const notice = document.getElementById('appointmentNotice');
+
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+
+                    if (notice) {
+                        setTimeout(() => {
+                            notice.classList.remove('highlight-pulse');
+                            void notice.offsetWidth; /* reflow to restart animation */
+                            notice.classList.add('highlight-pulse');
+                            notice.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }, 600);
+                    }
+                });
+            }
+
+            applyTheme(defaultTheme);
+
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const newTheme = rootBody.classList.contains('dark-mode') ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                });
+            }
         });
     </script>
 

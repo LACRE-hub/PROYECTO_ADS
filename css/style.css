@@ -33,6 +33,273 @@
     --transition:    all .3s ease;
 }
 
+body.dark-mode {
+    --primary:       #60a5fa;
+    --primary-dark:  #2563eb;
+    --primary-light: #1e3a8a;
+    --accent:        #22d3ee;
+    --success:       #34d399;
+    --warning:       #fbbf24;
+    --danger:        #f87171;
+    --purple:        #a855f7;
+    --orange:        #fb923c;
+    --teal:          #2dd4bf;
+
+    --dark:          #e2e8f0;
+    --dark-2:        #cbd5e1;
+    --mid:           #94a3b8;
+    --light:         #0b1120;
+    --white:         #0f172a;
+    --border:        #1f2937;
+    --text:          #f8fafc;
+
+    --shadow-sm:     0 2px 16px rgba(0,0,0,.35);
+    --shadow:        0 10px 28px rgba(0,0,0,.5);
+    --shadow-lg:     0 24px 56px rgba(0,0,0,.6);
+}
+
+body.dark-mode {
+    background: var(--white);
+    color: var(--text);
+}
+
+body.dark-mode .navbar {
+    background: rgba(15,23,42,.92);
+    border-color: rgba(148,163,184,.15);
+}
+
+body.dark-mode .navbar-brand {
+    color: var(--white) !important;
+}
+
+body.dark-mode .navbar-nav .nav-link {
+    color: var(--mid) !important;
+}
+
+body.dark-mode .navbar-nav .nav-link:hover {
+    background: rgba(148,163,184,.12) !important;
+}
+
+body.dark-mode .hero-section {
+    background: linear-gradient(145deg, #020617 0%, #0f172a 60%, #0c4a6e 100%);
+}
+
+body.dark-mode .service-card,
+body.dark-mode .portal-card,
+body.dark-mode .contact-form-wrapper,
+body.dark-mode .footer,
+body.dark-mode .appointment-notice {
+    background: var(--white);
+    border-color: var(--border);
+}
+
+body.dark-mode .hero-card-float {
+    background: rgba(255,255,255,.06);
+    border-color: rgba(148,163,184,.2);
+}
+
+body.dark-mode .footer {
+    background: #111827;
+    color: #d1d5db;
+}
+
+body.dark-mode .footer-brand {
+    color: #f8fafc;
+}
+
+body.dark-mode .footer-brand em {
+    color: #94a3b8;
+}
+
+body.dark-mode .footer-desc,
+body.dark-mode .footer-links a,
+body.dark-mode .footer-address p,
+body.dark-mode .footer-bottom p {
+    color: #cbd5e1;
+}
+
+body.dark-mode .footer-heading {
+    color: #f8fafc;
+}
+
+body.dark-mode .footer-links a {
+    color: #94a3b8;
+}
+
+body.dark-mode .footer-links a:hover {
+    color: var(--primary);
+}
+
+body.dark-mode .footer-address a {
+    color: var(--primary);
+}
+
+body.dark-mode .footer-bottom {
+    border-top-color: rgba(148,163,184,.16);
+}
+
+body.dark-mode .footer-bottom i {
+    color: #f87171;
+}
+
+body.dark-mode .gallery-overlay {
+    background: rgba(15,23,42,.75);
+}
+
+body.dark-mode .navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* ── Dark mode: sections ── */
+body.dark-mode .services-section,
+body.dark-mode .gallery-section {
+    background: #0b1120;
+}
+
+body.dark-mode .stats-section,
+body.dark-mode .portals-section,
+body.dark-mode .contact-section {
+    background: #0f172a;
+}
+
+/* ── Dark mode: typography ── */
+body.dark-mode .section-title h2,
+body.dark-mode .stats-heading,
+body.dark-mode .contact-heading,
+body.dark-mode .portal-card h5,
+body.dark-mode .service-card h5,
+body.dark-mode .check-item strong,
+body.dark-mode .contact-info-item strong,
+body.dark-mode .form-label {
+    color: #f1f5f9;
+}
+
+body.dark-mode .section-title p,
+body.dark-mode .stats-lead,
+body.dark-mode .contact-lead,
+body.dark-mode .portal-card p,
+body.dark-mode .service-card p,
+body.dark-mode .check-item p,
+body.dark-mode .contact-info-item p,
+body.dark-mode .portal-features li {
+    color: #94a3b8;
+}
+
+/* ── Dark mode: navbar brand icon ── */
+body.dark-mode .brand-icon,
+body.dark-mode .brand-icon-sm {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+/* ── Dark mode: section tag ── */
+body.dark-mode .section-tag {
+    background: rgba(96,165,250,.15);
+    color: #93c5fd;
+}
+
+/* ── Dark mode: stat cards ── */
+body.dark-mode .stat-card {
+    background: #1e293b;
+    border-color: #1f2937;
+    color: #f1f5f9;
+}
+
+body.dark-mode .stat-number { color: #f1f5f9; }
+body.dark-mode .stat-label  { color: #94a3b8; }
+
+/* ── Dark mode: check dots ── */
+body.dark-mode .check-dot {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+/* ── Dark mode: contact info icons ── */
+body.dark-mode .contact-info-icon {
+    background: rgba(96,165,250,.15);
+    color: var(--primary);
+}
+
+body.dark-mode .contact-info-item a { color: var(--primary); }
+
+/* ── Dark mode: form controls ── */
+body.dark-mode .form-control {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+
+body.dark-mode .form-control:focus {
+    background: #1e293b;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(96,165,250,.2);
+}
+
+/* ── Dark mode: portal cards ── */
+body.dark-mode .portal-patient { border-color: #065f46; box-shadow: 0 0 0 1px #059669; }
+body.dark-mode .portal-doctor  { border-color: #1e3a8a; box-shadow: 0 0 0 1px #2563eb; }
+body.dark-mode .portal-admin   { border-color: #78350f; box-shadow: 0 0 0 1px #d97706; }
+body.dark-mode .portal-worker  { border-color: #3d1f0f; box-shadow: 0 0 0 1px #a16a44; }
+body.dark-mode .portal-nurse   { border-color: #3b0764; box-shadow: 0 0 0 1px #7c3aed; }
+body.dark-mode .portal-secretary { border-color: #7f1d1d; box-shadow: 0 0 0 1px #b91c1c; }
+
+/* ── Dark mode: portal features checkmarks ── */
+body.dark-mode .portal-features li i {
+    background: rgba(52,211,153,.15);
+    color: #34d399;
+}
+
+/* ── Dark mode: appointment notice ── */
+body.dark-mode .appointment-notice {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1e3a8a22 100%);
+    border-color: #2563eb;
+}
+
+body.dark-mode .appt-notice-title { color: #93c5fd; }
+body.dark-mode .appt-notice-desc  { color: #94a3b8; }
+
+body.dark-mode .appt-contact-item {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+body.dark-mode .appt-contact-item:hover {
+    background: #1e3a8a22;
+    border-color: #3b82f6;
+}
+
+body.dark-mode .appt-contact-label { color: #64748b; }
+body.dark-mode .appt-contact-value { color: #93c5fd; }
+body.dark-mode .appt-contact-icon  { background: rgba(37,99,235,.2); color: #60a5fa; }
+
+.nav-theme-toggle {
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--dark);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.nav-theme-toggle:hover {
+    background: var(--primary-light);
+    color: white;
+}
+
+body.dark-mode .nav-theme-toggle {
+    border-color: #fbbf24;
+    color: #fbbf24;
+    background: rgba(251,191,36,.14);
+}
+
+body.dark-mode .nav-theme-toggle:hover {
+    background: rgba(251,191,36,.25);
+    color: #eab308;
+}
+
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -1027,4 +1294,3 @@ body {
             .appointment-notice { flex-direction: column; }
             .appt-contact-item { flex: 1 1 100%; }
         }
-   
