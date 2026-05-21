@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <title>Nurse Login — MediCore HMS</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Google Fonts: Inter -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Login CSS (nuevo archivo, no sobreescribe style.css) -->
+    <link rel="stylesheet" href="css/nurse_login.css" />
+  </head>
+
+  <body class="login-body">
+    <!-- Back link -->
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left me-2"></i>Back to Home
+    </a>
+
+    <div class="login-wrapper">
+      <!-- Left panel — branding -->
+      <div class="login-panel-left d-none d-lg-flex">
+        <div class="left-bg-shapes">
+          <div class="l-shape l-shape-1"></div>
+          <div class="l-shape l-shape-2"></div>
+          <div class="l-shape l-shape-3"></div>
+        </div>
+
+        <div class="left-content">
+          <!-- Logo -->
+          <div class="left-brand">
+            <span class="brand-icon-login"
+              ><i class="fas fa-user-nurse"></i
+            ></span>
+            <span>Medi<strong>Core</strong> <em>HMS</em></span>
+          </div>
+
+          <!-- Badge -->
+          <div class="left-badge">
+            <i class="fas fa-user-nurse me-2"></i>Nurse Panel
+          </div>
+
+          <h2 class="left-heading">
+            Manage care with<br />
+            <span class="text-gradient-light">clarity and speed</span><br />
+            at every shift.
+          </h2>
+
+          <p class="left-sub">
+            Access patient charts, update care plans, and coordinate with the
+            team from one secure portal.
+          </p>
+
+          <!-- Feature list -->
+          <div class="left-features">
+            <div class="left-feature-item">
+              <span class="lf-icon"><i class="fas fa-notes-medical"></i></span>
+              <div>
+                <strong>Patient Charts</strong>
+                <span>Quick access to vitals, notes and medication plans</span>
+              </div>
+            </div>
+            <div class="left-feature-item">
+              <span class="lf-icon"><i class="fas fa-calendar-check"></i></span>
+              <div>
+                <strong>Shift Management</strong>
+                <span>View assignments, handoffs and task lists instantly</span>
+              </div>
+            </div>
+            <div class="left-feature-item">
+              <span class="lf-icon"><i class="fas fa-comments"></i></span>
+              <div>
+                <strong>Team Coordination</strong>
+                <span>Communicate with doctors and admin staff securely</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom stat strip -->
+        <div class="left-stats">
+          <div class="left-stat">
+            <strong>99.9%</strong>
+            <span>Uptime SLA</span>
+          </div>
+          <div class="left-stat-divider"></div>
+          <div class="left-stat">
+            <strong>24/7</strong>
+            <span>Support</span>
+          </div>
+          <div class="left-stat-divider"></div>
+          <div class="left-stat">
+            <strong>HIPAA</strong>
+            <span>Compliant</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel — form -->
+      <div class="login-panel-right">
+        <div class="login-form-box">
+          <!-- Mobile brand (visible only on small screens) -->
+          <div class="mobile-brand d-flex d-lg-none">
+            <span class="brand-icon-login brand-icon-sm-login"
+              ><i class="fas fa-user-nurse"></i
+            ></span>
+            <span>Medi<strong>Core</strong> <em>HMS</em></span>
+          </div>
+
+          <!-- Header -->
+          <div class="form-header">
+            <div class="form-icon-wrap">
+              <i class="fas fa-user-nurse"></i>
+            </div>
+            <h1 class="form-title">Nurse Login</h1>
+            <p class="form-subtitle">
+              Access care assignments, patient notes and shift tools
+            </p>
+          </div>
+
+          <!-- Alert (hidden by default, shown on error via JS) -->
+          <div class="login-alert" id="loginAlert" style="display: none">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            <span id="alertMessage"
+              >Invalid credentials. Please try again.</span
+            >
+          </div>
+
+          <!-- Form -->
+          <form id="nurseLoginForm" novalidate>
+            <div class="field-group">
+              <label for="nurseEmail" class="field-label">
+                <i class="fas fa-envelope me-2"></i>Email Address
+              </label>
+              <input
+                type="email"
+                id="nurseEmail"
+                class="field-input"
+                placeholder="nurse@medicorehms.com"
+                autocomplete="username"
+                required
+              />
+              <span class="field-error" id="emailError"></span>
+            </div>
+
+            <div class="field-group">
+              <label for="nursePassword" class="field-label">
+                <i class="fas fa-lock me-2"></i>Password
+              </label>
+              <div class="input-password-wrap">
+                <input
+                  type="password"
+                  id="nursePassword"
+                  class="field-input"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  class="toggle-pw"
+                  id="togglePw"
+                  aria-label="Toggle password visibility"
+                >
+                  <i class="fas fa-eye" id="togglePwIcon"></i>
+                </button>
+              </div>
+              <span class="field-error" id="pwError"></span>
+            </div>
+
+            <div class="form-options">
+              <label class="remember-label">
+                <input type="checkbox" id="rememberMe" />
+                <span class="checkmark"></span>
+                Remember this device
+              </label>
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn-login" id="loginBtn">
+              <span class="btn-login-text">
+                <i class="fas fa-sign-in-alt me-2"></i>Sign In to Nurse Portal
+              </span>
+              <span class="btn-login-loading" style="display: none">
+                <span class="spinner"></span> Authenticating…
+              </span>
+            </button>
+
+            <br />  
+            <br />
+            <div class="field-group captcha-wrap">
+              <div
+                class="g-recaptcha"
+                data-sitekey="6Le59_QsAAAAAIC2rUZhr5G0gqItBk3h7-KT-JvA"
+              ></div>
+              <span class="field-error" id="captchaError"></span>
+            </div>
+          </form>
+
+          <!-- Divider -->
+          <div class="form-divider">
+            <span>or access another portal</span>
+          </div>
+
+          <!-- Other portals -->
+          <div class="other-portals">
+            <a href="Admin_Login.html" class="portal-link portal-link-admin">
+              <i class="fas fa-user-shield me-2"></i>Admin Portal
+            </a>
+            <a href="Doctor_Login.html" class="portal-link portal-link-doctor">
+              <i class="fas fa-user-md me-2"></i>Doctor Portal
+            </a>
+            <a href="Patient_Login.html" class="portal-link portal-link-patient">
+              <i class="fas fa-user me-2"></i>Patient Portal
+            </a>
+            <a href="Worker_Login.html" class="portal-link portal-link-worker">
+              <i class="fas fa-warehouse me-2"></i>Worker Portal
+            </a>
+            <a href="Secretary_Login.html" class="portal-link portal-link-secretary">
+              <i class="fas fa-file-alt me-2"></i>Secretary Portal
+            </a>
+            <a href="index.html" class="portal-link portal-link-home">
+              <i class="fas fa-user-shield me-2"></i>Go Back Home
+            </a>
+          </div>
+
+          <p class="form-footer-note">
+            <i class="fas fa-lock me-1"></i>
+            All sessions are encrypted and monitored for security.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script>
+    /* Toggle password */
+    const togglePw   = document.getElementById('togglePw');
+    const pwInput    = document.getElementById('nursePassword');
+    const toggleIcon = document.getElementById('togglePwIcon');
+
+    togglePw.addEventListener('click', () => {
+        const isHidden = pwInput.type === 'password';
+        pwInput.type   = isHidden ? 'text' : 'password';
+        toggleIcon.className = isHidden ? 'fas fa-eye-slash' : 'fas fa-eye';
+    });
+
+    /* Form submit */
+    const form      = document.getElementById('nurseLoginForm');
+    const loginBtn  = document.getElementById('loginBtn');
+    const btnText   = loginBtn.querySelector('.btn-login-text');
+    const btnLoader = loginBtn.querySelector('.btn-login-loading');
+    const alertBox  = document.getElementById('loginAlert');
+    const alertMsg  = document.getElementById('alertMessage');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('nurseEmail').value.trim();
+        const pw    = document.getElementById('nursePassword').value;
+        let valid   = true;
+
+        document.getElementById('emailError').textContent    = '';
+        document.getElementById('pwError').textContent       = '';
+        document.getElementById('captchaError').textContent  = '';
+        alertBox.style.display = 'none';
+
+        if (!email) {
+            document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+            valid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+            valid = false;
+        }
+
+        if (!pw) {
+            document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+            valid = false;
+        } else if (pw.length < 6) {
+            document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+            valid = false;
+        }
+
+        const captchaToken = grecaptcha.getResponse();
+        if (!captchaToken) {
+            document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        btnText.style.display   = 'none';
+        btnLoader.style.display = 'inline-flex';
+        loginBtn.disabled = true;
+
+        await new Promise(r => setTimeout(r, 1800));
+
+        btnText.style.display   = 'inline-flex';
+        btnLoader.style.display = 'none';
+        loginBtn.disabled = false;
+        grecaptcha.reset();
+
+        alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+        alertBox.style.display = 'flex';
+    });
+</script>
+
+  </body>
+</html>
