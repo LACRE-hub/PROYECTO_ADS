@@ -56,20 +56,20 @@ body.login-body {
     gap: .35rem;
     font-size: .82rem;
     font-weight: 600;
-    color: rgba(255,255,255,.65);
+    color: var(--dark);
     text-decoration: none;
-    background: rgba(255,255,255,.1);
+    background: var(--white);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,.15);
+    border: 1px solid var(--border);
     padding: .45rem 1rem;
     border-radius: 50px;
     transition: var(--transition);
 }
 
 .back-link:hover {
-    color: white;
-    background: rgba(255,255,255,.18);
-    border-color: rgba(255,255,255,.3);
+    color: var(--dark);
+    background: #f8fafc;
+    border-color: var(--border);
 }
 
 /* ── Layout wrapper ── */
@@ -509,12 +509,14 @@ body.login-body {
 /* Other portals */
 .other-portals {
     display: flex;
+    flex-wrap: wrap;
     gap: .75rem;
     margin-bottom: 1.75rem;
 }
 
 .portal-link {
-    flex: 1;
+    flex: 1 1 calc(50% - .75rem);
+    min-width: calc(50% - .75rem);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -536,11 +538,32 @@ body.login-body {
     color: #065f46;
 }
 
-.portal-link-doctor { color: var(--purple); }
+.portal-link-doctor { color: #2563eb; }
 .portal-link-doctor:hover {
-    border-color: var(--purple);
+    border-color: #2563eb;
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.portal-link-worker { color: #a16a44; }
+.portal-link-worker:hover {
+    border-color: #a16a44;
+    background: #f7efe7;
+    color: #55331d;
+}
+
+.portal-link-nurse { color: #7c3aed; }
+.portal-link-nurse:hover {
+    border-color: #7c3aed;
     background: #ede9fe;
     color: #4c1d95;
+}
+
+.portal-link-secretary { color: #dc2626; }
+.portal-link-secretary:hover {
+    border-color: #dc2626;
+    background: #fee2e2;
+    color: #7f1d1d;
 }
 
 /* Footer note */
@@ -560,15 +583,15 @@ body.login-body {
     }
 
     .back-link {
-        color: var(--mid);
+        color: var(--dark);
         background: var(--white);
         border-color: var(--border);
     }
 
     .back-link:hover {
-        color: var(--primary);
-        background: var(--primary-light);
-        border-color: var(--primary);
+        color: var(--dark);
+        background: #f8fafc;
+        border-color: var(--border);
     }
 }
 
