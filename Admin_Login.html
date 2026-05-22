@@ -318,10 +318,20 @@
         btnLoader.style.display = 'inline-flex';
         loginBtn.disabled = true;
 
-        /* Aquí va tu llamada real al servidor — simulación por ahora */
+        /* Simulated auth delay */
         await new Promise(r => setTimeout(r, 1800));
 
-        /* Reset */
+        /* Credential check */
+        const ADMIN_EMAIL    = 'admin_medicore@medicine.com';
+        const ADMIN_PASSWORD = 'MediCore_1917';
+
+        if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
+            /* Redirect to Admin Panel */
+            window.location.href = 'panel_Administrador.html';
+            return;
+        }
+
+        /* Invalid credentials */
         btnText.style.display   = 'inline-flex';
         btnLoader.style.display = 'none';
         loginBtn.disabled = false;

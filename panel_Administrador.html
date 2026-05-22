@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — MediCore HMS</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Dashboard CSS -->
+  <link rel="stylesheet" href="css/admin_dashboard.css" />
+</head>
+<body>
+
+<!-- Mobile overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ════════ SIDEBAR ════════ -->
+<aside class="sidebar" id="sidebar">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="fas fa-heartbeat"></i></div>
+    <div class="brand-name">
+      Medi<span>Core</span>
+      <small>Hospital Management System</small>
+    </div>
+  </div>
+
+  <!-- Main nav -->
+  <nav class="nav-section">
+    <div class="nav-section-label">Main Menu</div>
+
+    <a href="#" class="nav-item active">
+      <span class="nav-icon"><i class="fas fa-th-large"></i></span>
+      Dashboard
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-users"></i></span>
+      Patients
+      <span class="nav-badge">24</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-user-md"></i></span>
+      Doctors
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-user-nurse"></i></span>
+      Nurses
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-calendar-check"></i></span>
+      Appointments
+      <span class="nav-badge">7</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-clinic-medical"></i></span>
+      Departments
+    </a>
+  </nav>
+
+  <nav class="nav-section">
+    <div class="nav-section-label">Management</div>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-file-invoice-dollar"></i></span>
+      Billing
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-boxes"></i></span>
+      Inventory
+    </a>
+    <a href="#" class="nav-icon nav-item">
+      <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
+      Analytics
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-users-cog"></i></span>
+      Staff Control
+    </a>
+  </nav>
+
+  <nav class="nav-section">
+    <div class="nav-section-label">System</div>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-shield-alt"></i></span>
+      Security
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon"><i class="fas fa-cog"></i></span>
+      Settings
+    </a>
+  </nav>
+
+  <!-- User -->
+  <div class="sidebar-bottom">
+    <div class="sidebar-user">
+      <div class="user-avatar">JD</div>
+      <div class="user-info">
+        <div class="user-name">Jane Doe</div>
+        <div class="user-role">System Administrator</div>
+      </div>
+      <i class="fas fa-ellipsis-v" style="color:#475569;font-size:.8rem;margin-left:auto;"></i>
+    </div>
+  </div>
+
+</aside>
+
+<!-- ════════ MAIN WRAP ════════ -->
+<div class="main-wrap">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle sidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="topbar-title">
+      Dashboard
+      <span>/ Overview</span>
+    </div>
+
+    <!-- Search -->
+    <div class="topbar-search">
+      <i class="fas fa-search"></i>
+      <input type="text" placeholder="Search patients, doctors…" />
+    </div>
+
+    <div class="topbar-actions">
+      <!-- Notifications -->
+      <button class="topbar-btn" title="Notifications">
+        <i class="fas fa-bell"></i>
+        <span class="badge">3</span>
+      </button>
+      <!-- Messages -->
+      <button class="topbar-btn" title="Messages">
+        <i class="fas fa-envelope"></i>
+        <span class="badge">5</span>
+      </button>
+
+      <div class="topbar-divider"></div>
+
+      <!-- Profile -->
+      <div class="topbar-profile">
+        <div class="avatar-placeholder">JD</div>
+        <div>
+          <div class="profile-name">Jane Doe</div>
+          <div class="profile-role">Administrator</div>
+        </div>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <main class="page-content">
+
+    <!-- ── WELCOME BANNER ── -->
+    <div class="welcome-card">
+      <div class="welcome-text">
+        <div class="welcome-greeting"><i class="fas fa-sun me-1"></i> Good morning</div>
+        <div class="welcome-name">Hello, <span>Dr. Jane Doe</span> 👋</div>
+        <div class="welcome-sub">
+          Here's what's happening in MediCore today. You have
+          <strong style="color:var(--primary)">7 pending appointments</strong> and
+          <strong style="color:var(--primary)">3 new alerts</strong> to review.
+        </div>
+      </div>
+      <div class="welcome-stats">
+        <div class="w-stat">
+          <div class="w-stat-icon"><i class="fas fa-procedures"></i></div>
+          <div class="w-stat-num">2,301</div>
+          <div class="w-stat-label">Total Patients</div>
+        </div>
+        <div class="w-stat">
+          <div class="w-stat-icon"><i class="fas fa-user-md"></i></div>
+          <div class="w-stat-num">401</div>
+          <div class="w-stat-label">Total Doctors</div>
+        </div>
+        <div class="w-stat">
+          <div class="w-stat-icon"><i class="fas fa-clinic-medical"></i></div>
+          <div class="w-stat-num">21</div>
+          <div class="w-stat-label">Total Clinics</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STAT CARDS ── -->
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-icon-wrap orange"><i class="fas fa-calendar-day"></i></div>
+        <div class="stat-info">
+          <div class="stat-num">148</div>
+          <div class="stat-label">Today's Appointments</div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> +12% vs yesterday</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap green"><i class="fas fa-user-plus"></i></div>
+        <div class="stat-info">
+          <div class="stat-num">36</div>
+          <div class="stat-label">New Admissions</div>
+          <div class="stat-change up"><i class="fas fa-arrow-up"></i> +4 today</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap blue"><i class="fas fa-bed"></i></div>
+        <div class="stat-info">
+          <div class="stat-num">184</div>
+          <div class="stat-label">Occupied Beds</div>
+          <div class="stat-change down"><i class="fas fa-arrow-down"></i> 12 available</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap red"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="stat-info">
+          <div class="stat-num">7</div>
+          <div class="stat-label">Critical Cases</div>
+          <div class="stat-change down"><i class="fas fa-arrow-down"></i> -2 since morning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── QUICK ACTIONS ── -->
+    <div>
+      <div class="section-header">
+        <div class="section-title"><i class="fas fa-bolt"></i> Quick Actions</div>
+        <a href="#" class="section-link">View all <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="quick-actions">
+        <a href="#" class="action-card">
+          <div class="action-icon"><i class="fas fa-clinic-medical"></i></div>
+          <div>
+            <div class="action-label">Add A Clinic</div>
+            <div class="action-sub">Register new unit</div>
+          </div>
+        </a>
+        <a href="#" class="action-card">
+          <div class="action-icon"><i class="fas fa-user-md"></i></div>
+          <div>
+            <div class="action-label">Add Specialist</div>
+            <div class="action-sub">Onboard doctor</div>
+          </div>
+        </a>
+        <a href="#" class="action-card">
+          <div class="action-icon"><i class="fas fa-user-plus"></i></div>
+          <div>
+            <div class="action-label">Add A User</div>
+            <div class="action-sub">Create account</div>
+          </div>
+        </a>
+        <a href="#" class="action-card">
+          <div class="action-icon"><i class="fas fa-user-shield"></i></div>
+          <div>
+            <div class="action-label">Add An Admin</div>
+            <div class="action-sub">Grant access</div>
+          </div>
+        </a>
+        <a href="#" class="action-card">
+          <div class="action-icon"><i class="fas fa-id-badge"></i></div>
+          <div>
+            <div class="action-label">Add A Staff</div>
+            <div class="action-sub">New employee</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── CHARTS ROW ── -->
+    <div class="dashboard-grid">
+
+      <!-- Recent Activities Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-chart-area"></i> Recent Activities</div>
+          <a href="#" class="card-action">Export</a>
+        </div>
+        <!-- Bar chart (CSS-only visual) -->
+        <div class="chart-area" id="activityChart">
+          <!-- Bars generated by JS below -->
+        </div>
+        <div style="display:flex;gap:.5rem;align-items:center;margin-top:1rem;font-size:.72rem;color:var(--text-muted);">
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--primary);display:inline-block;"></span>
+          # of patients &nbsp;&nbsp;
+          <span style="width:10px;height:10px;border-radius:50%;background:var(--primary-light);display:inline-block;"></span>
+          Average
+        </div>
+      </div>
+
+      <!-- Total Bookings Donut -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-chart-pie"></i> Total Bookings</div>
+          <a href="#" class="card-action">Details</a>
+        </div>
+        <div class="donut-area">
+          <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#f1f5f9" stroke-width="14"/>
+            <!-- urgent: 35% -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="var(--primary)" stroke-width="14"
+              stroke-dasharray="105.56 196.04" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)"/>
+            <!-- no urgent: 28% -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#fbbf24" stroke-width="14"
+              stroke-dasharray="84.44 216.64" stroke-dashoffset="-105.56"
+              transform="rotate(-90 60 60)"/>
+            <!-- resuscitation: 20% -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#3b82f6" stroke-width="14"
+              stroke-dasharray="60.32 241.76" stroke-dashoffset="-189.96"
+              transform="rotate(-90 60 60)"/>
+            <!-- emergency: 17% -->
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#10b981" stroke-width="14"
+              stroke-dasharray="51.24 250.84" stroke-dashoffset="-250.24"
+              transform="rotate(-90 60 60)"/>
+            <text x="60" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">1,284</text>
+            <text x="60" y="70" text-anchor="middle" font-size="8" fill="#64748b">total</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:var(--primary)"></span>
+              Urgent
+              <span class="legend-val">449</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#fbbf24"></span>
+              No Urgent
+              <span class="legend-val">360</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#3b82f6"></span>
+              Resuscitation
+              <span class="legend-val">257</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#10b981"></span>
+              Emergency
+              <span class="legend-val">218</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diseases Summary Donut -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-virus"></i> Diseases Summary</div>
+          <a href="#" class="card-action">View all</a>
+        </div>
+        <div class="donut-area">
+          <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#f1f5f9" stroke-width="14"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#ef4444" stroke-width="14"
+              stroke-dasharray="90.48 211.12" stroke-dashoffset="0"
+              transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#8b5cf6" stroke-width="14"
+              stroke-dasharray="66.03 235.57" stroke-dashoffset="-90.48"
+              transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#06b6d4" stroke-width="14"
+              stroke-dasharray="54.12 247.48" stroke-dashoffset="-156.48"
+              transform="rotate(-90 60 60)"/>
+            <circle cx="60" cy="60" r="48" fill="none" stroke="#f59e0b" stroke-width="14"
+              stroke-dasharray="90.96 210.64" stroke-dashoffset="-210.56"
+              transform="rotate(-90 60 60)"/>
+            <text x="60" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#0f172a">4</text>
+            <text x="60" y="70" text-anchor="middle" font-size="8" fill="#64748b">diseases</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#ef4444"></span>
+              Malaria
+              <span class="legend-val">523</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#8b5cf6"></span>
+              Tuberculosis
+              <span class="legend-val">382</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#06b6d4"></span>
+              Pneumonia
+              <span class="legend-val">314</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot" style="background:#f59e0b"></span>
+              Diabetes
+              <span class="legend-val">256</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ── PATIENTS TABLE + DOCTORS ── -->
+    <div class="dashboard-grid two-col">
+
+      <!-- Recent Patients -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-procedures"></i> Recent Patients</div>
+          <a href="#" class="card-action">View all</a>
+        </div>
+        <table class="patient-table">
+          <thead>
+            <tr>
+              <th>Patient</th>
+              <th>Condition</th>
+              <th>Doctor</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="p-name">
+                  <div class="p-avatar">AM</div>
+                  <strong>Alice Martin</strong>
+                </div>
+              </td>
+              <td>Hypertension</td>
+              <td>Dr. Patel</td>
+              <td><span class="status-badge active"><i class="fas fa-circle" style="font-size:.45rem"></i> Active</span></td>
+              <td style="color:var(--text-muted);font-size:.78rem;">May 21, 2026</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="p-name">
+                  <div class="p-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">BJ</div>
+                  <strong>Bob Johnson</strong>
+                </div>
+              </td>
+              <td>Diabetes Type II</td>
+              <td>Dr. Rivera</td>
+              <td><span class="status-badge critical"><i class="fas fa-circle" style="font-size:.45rem"></i> Critical</span></td>
+              <td style="color:var(--text-muted);font-size:.78rem;">May 20, 2026</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="p-name">
+                  <div class="p-avatar" style="background:linear-gradient(135deg,#10b981,#047857)">CL</div>
+                  <strong>Clara López</strong>
+                </div>
+              </td>
+              <td>Pneumonia</td>
+              <td>Dr. Chen</td>
+              <td><span class="status-badge pending"><i class="fas fa-circle" style="font-size:.45rem"></i> Pending</span></td>
+              <td style="color:var(--text-muted);font-size:.78rem;">May 20, 2026</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="p-name">
+                  <div class="p-avatar" style="background:linear-gradient(135deg,#8b5cf6,#5b21b6)">DK</div>
+                  <strong>David Kim</strong>
+                </div>
+              </td>
+              <td>Fracture (Tibia)</td>
+              <td>Dr. Okafor</td>
+              <td><span class="status-badge discharged"><i class="fas fa-circle" style="font-size:.45rem"></i> Discharged</span></td>
+              <td style="color:var(--text-muted);font-size:.78rem;">May 19, 2026</td>
+            </tr>
+            <tr>
+              <td>
+                <div class="p-name">
+                  <div class="p-avatar" style="background:linear-gradient(135deg,#dc2626,#991b1b)">ES</div>
+                  <strong>Emma Santos</strong>
+                </div>
+              </td>
+              <td>Malaria</td>
+              <td>Dr. Patel</td>
+              <td><span class="status-badge critical"><i class="fas fa-circle" style="font-size:.45rem"></i> Critical</span></td>
+              <td style="color:var(--text-muted);font-size:.78rem;">May 19, 2026</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Top Doctors -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-star"></i> Top Doctors</div>
+          <a href="#" class="card-action">Manage</a>
+        </div>
+        <div class="doctor-list">
+          <div class="doctor-item">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,var(--primary),var(--primary-dark))">AP</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Anita Patel</div>
+              <div class="doctor-spec">Cardiologist &nbsp;·&nbsp; <i class="fas fa-star" style="color:#fbbf24;font-size:.7rem"></i> 4.9</div>
+            </div>
+            <div class="doctor-patients">148 pts</div>
+          </div>
+          <div class="doctor-item">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">MR</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Marco Rivera</div>
+              <div class="doctor-spec">Endocrinologist &nbsp;·&nbsp; <i class="fas fa-star" style="color:#fbbf24;font-size:.7rem"></i> 4.8</div>
+            </div>
+            <div class="doctor-patients">132 pts</div>
+          </div>
+          <div class="doctor-item">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#10b981,#047857)">LC</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Li Chen</div>
+              <div class="doctor-spec">Pulmonologist &nbsp;·&nbsp; <i class="fas fa-star" style="color:#fbbf24;font-size:.7rem"></i> 4.7</div>
+            </div>
+            <div class="doctor-patients">119 pts</div>
+          </div>
+          <div class="doctor-item">
+            <div class="doctor-avatar" style="background:linear-gradient(135deg,#8b5cf6,#5b21b6)">EO</div>
+            <div class="doctor-info">
+              <div class="doctor-name">Dr. Emeka Okafor</div>
+              <div class="doctor-spec">Orthopedics &nbsp;·&nbsp; <i class="fas fa-star" style="color:#fbbf24;font-size:.7rem"></i> 4.6</div>
+            </div>
+            <div class="doctor-patients">98 pts</div>
+          </div>
+        </div>
+
+        <!-- Activity mini list -->
+        <div class="card-header" style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border);">
+          <div class="card-title"><i class="fas fa-history"></i> Recent Activity</div>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-dot orange"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>New admission</strong> — Emma Santos, Malaria (ICU)</div>
+              <div class="activity-time">2 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot green"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Discharged</strong> — David Kim after orthopedic surgery</div>
+              <div class="activity-time">34 minutes ago</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot blue"></div>
+            <div class="activity-content">
+              <div class="activity-text"><strong>Lab results</strong> — Ready for Alice Martin (CBC)</div>
+              <div class="activity-time">1 hour ago</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main><!-- /page-content -->
+</div><!-- /main-wrap -->
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ── Sidebar toggle (mobile) ── */
+const sidebar  = document.getElementById('sidebar');
+const overlay  = document.getElementById('sidebarOverlay');
+const hamburger = document.getElementById('hamburgerBtn');
+
+hamburger.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('active');
+});
+overlay.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('active');
+});
+
+/* ── Active nav highlight ── */
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function(e) {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ── Bar Chart (CSS-only, data-driven) ── */
+const chartData = [
+  { label: 'Jan', val: 45, active: false },
+  { label: 'Feb', val: 72, active: false },
+  { label: 'Mar', val: 58, active: false },
+  { label: 'Apr', val: 90, active: false },
+  { label: 'May', val: 67, active: false },
+  { label: 'Jun', val: 110, active: true  },
+  { label: 'Jul', val: 88, active: false },
+  { label: 'Aug', val: 95, active: false },
+];
+
+const max = Math.max(...chartData.map(d => d.val));
+const chartEl = document.getElementById('activityChart');
+
+chartData.forEach(d => {
+  const height = Math.round((d.val / max) * 130);
+  const wrap = document.createElement('div');
+  wrap.className = 'chart-bar-wrap';
+  wrap.innerHTML = `
+    <div class="chart-bar${d.active ? ' active' : ''}" style="height:${height}px" title="${d.val} patients"></div>
+    <div class="chart-label">${d.label}</div>
+  `;
+  chartEl.appendChild(wrap);
+});
+
+/* ── Topbar search focus ── */
+document.querySelector('.topbar-search input').addEventListener('focus', function() {
+  this.closest('.topbar-search').style.borderColor = 'var(--primary)';
+});
+document.querySelector('.topbar-search input').addEventListener('blur', function() {
+  this.closest('.topbar-search').style.borderColor = '';
+});
+</script>
+
+</body>
+</html>
