@@ -3,7 +3,7 @@
    admin-login.css (no sobrescribe style.css)
    ══════════════════════════════════════ */
 
-/* Re-usa las variables de diseño del sistema principal */
+/* Reuses design variables from the main system */
 :root {
      --primary:       #f97316;   /* naranja */
     --primary-dark:  #ea580c;   /* naranja oscuro */
@@ -32,7 +32,7 @@
     --transition:    all .3s ease;
 }
 
-/* ── Reset específico para login ── */
+/* ── Specific reset for login ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 

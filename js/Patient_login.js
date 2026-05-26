@@ -30,28 +30,28 @@ form.addEventListener('submit', async (e) => {
     document.getElementById('captchaError').textContent  = '';
     alertBox.style.display = 'none';
 
-    /* Validar número de paciente */
+    /* Validate patient number */
     if (!patientNumber) {
-        document.getElementById('patientNumberError').textContent = 'Por favor ingresa tu número de paciente.';
+        document.getElementById('patientNumberError').textContent = 'Please enter your patient number.';
         valid = false;
     } else if (!/^\d{10}$/.test(patientNumber)) {
-        document.getElementById('patientNumberError').textContent = 'El número de paciente debe tener 10 dígitos.';
+        document.getElementById('patientNumberError').textContent = 'Patient number must be exactly 10 digits.';
         valid = false;
     }
 
-    /* Validar password */
+    /* Validate password */
     if (!pw) {
-        document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+        document.getElementById('pwError').textContent = 'Please enter your password.';
         valid = false;
     } else if (pw.length < 6) {
-        document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+        document.getElementById('pwError').textContent = 'Minimum 6 characters.';
         valid = false;
     }
 
-    /* Validar captcha */
+    /* Validate captcha */
     const captchaToken = grecaptcha.getResponse();
     if (!captchaToken) {
-        document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+        document.getElementById('captchaError').textContent = 'Please complete the captcha.';
         valid = false;
     }
 
@@ -71,6 +71,6 @@ form.addEventListener('submit', async (e) => {
     loginBtn.disabled = false;
     grecaptcha.reset();
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de paciente y contraseña.';
+    alertMsg.textContent = 'Invalid credentials. Verify your patient number and password.'
     alertBox.style.display = 'flex';
 });

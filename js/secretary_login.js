@@ -29,24 +29,24 @@
         alertBox.style.display = 'none';
 
         if (!employeeId) {
-            document.getElementById('employeeIdError').textContent = 'Por favor ingresa tu número de empleado.';
+            document.getElementById('employeeIdError').textContent = 'Please enter your employee number.';
             valid = false;
         } else if (!/^\d{10}$/.test(employeeId)) {
-            document.getElementById('employeeIdError').textContent = 'El número de empleado debe tener 10 dígitos.';
+            document.getElementById('employeeIdError').textContent = 'Employee number must be exactly 10 digits.';
             valid = false;
         }
 
         if (!pw) {
-            document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+            document.getElementById('pwError').textContent = 'Please enter your password.';
             valid = false;
         } else if (pw.length < 6) {
-            document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+            document.getElementById('pwError').textContent = 'Minimum 6 characters.';
             valid = false;
         }
 
         const captchaToken = grecaptcha.getResponse();
         if (!captchaToken) {
-            document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+            document.getElementById('captchaError').textContent = 'Please complete the captcha.';
             valid = false;
         }
 
@@ -63,6 +63,6 @@
         loginBtn.disabled = false;
         grecaptcha.reset();
 
-        alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de empleado y contraseña.';
+        alertMsg.textContent = 'Invalid credentials. Verify your employee number and password.'
         alertBox.style.display = 'flex';
     });
