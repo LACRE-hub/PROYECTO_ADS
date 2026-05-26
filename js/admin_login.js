@@ -20,22 +20,22 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('adminEmail').value.trim();
+    const employeeId = document.getElementById('adminEmployeeId').value.trim();
     const pw    = document.getElementById('adminPassword').value;
     let valid   = true;
 
     /* Limpiar errores previos */
-    document.getElementById('emailError').textContent    = '';
+    document.getElementById('employeeIdError').textContent = '';
     document.getElementById('pwError').textContent       = '';
     document.getElementById('captchaError').textContent  = '';
     alertBox.style.display = 'none';
 
-    /* Validar email */
-    if (!email) {
-        document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+    /* Validar número de empleado */
+    if (!employeeId) {
+        document.getElementById('employeeIdError').textContent = 'Por favor ingresa tu número de empleado.';
         valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+    } else if (!/^\d{10}$/.test(employeeId)) {
+        document.getElementById('employeeIdError').textContent = 'El número de empleado debe tener 10 dígitos.';
         valid = false;
     }
 
@@ -66,10 +66,10 @@ form.addEventListener('submit', async (e) => {
     await new Promise(r => setTimeout(r, 1800));
 
     /* Credential check */
-    const ADMIN_EMAIL    = 'admin_medicore@medicine.com';
+    const ADMIN_EMPLOYEE_ID = '1000000001';
     const ADMIN_PASSWORD = 'MediCore_1917';
 
-    if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
+    if (employeeId === ADMIN_EMPLOYEE_ID && pw === ADMIN_PASSWORD) {
         /* Redirect to Admin Panel */
         window.location.href = 'panel_Administrador.html';
         return;
@@ -81,6 +81,6 @@ form.addEventListener('submit', async (e) => {
     loginBtn.disabled = false;
     grecaptcha.reset();
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+    alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de empleado y contraseña.';
     alertBox.style.display = 'flex';
 });

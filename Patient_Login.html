@@ -146,18 +146,18 @@
           <!-- Form -->
           <form id="patientLoginForm" novalidate>
             <div class="field-group">
-              <label for="patientEmail" class="field-label">
-                <i class="fas fa-envelope me-2"></i>Email Address
+              <label for="patientEmployeeId" class="field-label">
+                <i class="fas fa-id-card me-2"></i>Employee Number
               </label>
               <input
-                type="email"
-                id="patientEmail"
+                type="number"
+                id="patientEmployeeId"
                 class="field-input"
-                placeholder="patient@medicorehms.com"
+                placeholder="1234567890"
                 autocomplete="username"
                 required
               />
-              <span class="field-error" id="emailError"></span>
+              <span class="field-error" id="employeeIdError"></span>
             </div>
 
             <div class="field-group">

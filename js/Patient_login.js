@@ -20,22 +20,22 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('patientEmail').value.trim();
+    const employeeId = document.getElementById('patientEmployeeId').value.trim();
     const pw    = document.getElementById('patientPassword').value;
     let valid   = true;
 
     /* Limpiar errores previos */
-    document.getElementById('emailError').textContent    = '';
+    document.getElementById('employeeIdError').textContent = '';
     document.getElementById('pwError').textContent       = '';
     document.getElementById('captchaError').textContent  = '';
     alertBox.style.display = 'none';
 
-    /* Validar email */
-    if (!email) {
-        document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+    /* Validar número de empleado */
+    if (!employeeId) {
+        document.getElementById('employeeIdError').textContent = 'Por favor ingresa tu número de empleado.';
         valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+    } else if (!/^\d{10}$/.test(employeeId)) {
+        document.getElementById('employeeIdError').textContent = 'El número de empleado debe tener 10 dígitos.';
         valid = false;
     }
 
@@ -71,6 +71,6 @@ form.addEventListener('submit', async (e) => {
     loginBtn.disabled = false;
     grecaptcha.reset();
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+    alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de empleado y contraseña.';
     alertBox.style.display = 'flex';
 });
