@@ -20,22 +20,22 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const employeeId = document.getElementById('patientEmployeeId').value.trim();
+    const patientNumber = document.getElementById('patientPatientNumber').value.trim();
     const pw    = document.getElementById('patientPassword').value;
     let valid   = true;
 
     /* Limpiar errores previos */
-    document.getElementById('employeeIdError').textContent = '';
+    document.getElementById('patientNumberError').textContent = '';
     document.getElementById('pwError').textContent       = '';
     document.getElementById('captchaError').textContent  = '';
     alertBox.style.display = 'none';
 
-    /* Validar número de empleado */
-    if (!employeeId) {
-        document.getElementById('employeeIdError').textContent = 'Por favor ingresa tu número de empleado.';
+    /* Validar número de paciente */
+    if (!patientNumber) {
+        document.getElementById('patientNumberError').textContent = 'Por favor ingresa tu número de paciente.';
         valid = false;
-    } else if (!/^\d{10}$/.test(employeeId)) {
-        document.getElementById('employeeIdError').textContent = 'El número de empleado debe tener 10 dígitos.';
+    } else if (!/^\d{10}$/.test(patientNumber)) {
+        document.getElementById('patientNumberError').textContent = 'El número de paciente debe tener 10 dígitos.';
         valid = false;
     }
 
@@ -71,6 +71,6 @@ form.addEventListener('submit', async (e) => {
     loginBtn.disabled = false;
     grecaptcha.reset();
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de empleado y contraseña.';
+    alertMsg.textContent = 'Credenciales inválidas. Verifica tu número de paciente y contraseña.';
     alertBox.style.display = 'flex';
 });
