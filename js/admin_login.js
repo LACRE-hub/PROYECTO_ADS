@@ -66,7 +66,7 @@ form.addEventListener('submit', async (e) => {
     await new Promise(r => setTimeout(r, 1800));
 
     /* Credential check */
-    const ADMIN_EMPLOYEE_ID = '1000000001';
+    const ADMIN_EMPLOYEE_ID = '2024630141';
     const ADMIN_PASSWORD = 'MediCore_1917';
 
     if (employeeId === ADMIN_EMPLOYEE_ID && pw === ADMIN_PASSWORD) {
