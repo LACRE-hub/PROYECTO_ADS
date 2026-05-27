@@ -20,14 +20,14 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const employeeId = document.getElementById('adminEmployeeId').value.trim();
-    const pw    = document.getElementById('adminPassword').value;
-    let valid   = true;
+    const employeeId = document.getElementById('adminEmployeeId').value.trim().replace(/\D/g, '');
+    const pw         = document.getElementById('adminPassword').value.trim();
+    let valid        = true;
 
     /* Limpiar errores previos */
     document.getElementById('employeeIdError').textContent = '';
-    document.getElementById('pwError').textContent       = '';
-    document.getElementById('captchaError').textContent  = '';
+    document.getElementById('pwError').textContent         = '';
+    document.getElementById('captchaError').textContent    = '';
     alertBox.style.display = 'none';
 
     /* Validate employee number */
@@ -49,8 +49,14 @@ form.addEventListener('submit', async (e) => {
     }
 
     /* Validate captcha */
-    const captchaToken = grecaptcha.getResponse();
-    if (!captchaToken) {
+    let captchaToken = '';
+    try {
+        captchaToken = grecaptcha.getResponse();
+    } catch (err) {
+        captchaToken = '';
+    }
+
+    if (!captchaToken || captchaToken.length === 0) {
         document.getElementById('captchaError').textContent = 'Please complete the captcha.';
         valid = false;
     }
@@ -60,17 +66,16 @@ form.addEventListener('submit', async (e) => {
     /* Loading state */
     btnText.style.display   = 'none';
     btnLoader.style.display = 'inline-flex';
-    loginBtn.disabled = true;
+    loginBtn.disabled       = true;
 
     /* Simulated auth delay */
-    await new Promise(r => setTimeout(r, 1800));
+    await new Promise(r => setTimeout(r, 1500));
 
     /* Credential check */
     const ADMIN_EMPLOYEE_ID = '2024630141';
-    const ADMIN_PASSWORD = 'MediCore_1917';
+    const ADMIN_PASSWORD    = 'MediCore_1917';
 
     if (employeeId === ADMIN_EMPLOYEE_ID && pw === ADMIN_PASSWORD) {
-        /* Redirect to Admin Panel */
         window.location.href = 'panel_Administrador.html';
         return;
     }
@@ -78,9 +83,10 @@ form.addEventListener('submit', async (e) => {
     /* Invalid credentials */
     btnText.style.display   = 'inline-flex';
     btnLoader.style.display = 'none';
-    loginBtn.disabled = false;
-    grecaptcha.reset();
+    loginBtn.disabled       = false;
 
-    alertMsg.textContent = 'Invalid credentials. Verify your employee number and password.'
+    try { grecaptcha.reset(); } catch(err) {}
+
+    alertMsg.textContent   = 'Invalid credentials. Verify your employee number and password.';
     alertBox.style.display = 'flex';
 });
