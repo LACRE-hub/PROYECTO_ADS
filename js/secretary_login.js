@@ -19,34 +19,34 @@
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const email = document.getElementById('secretaryEmail').value.trim();
+        const employeeId = document.getElementById('secretaryEmployeeId').value.trim();
         const pw    = document.getElementById('secretaryPassword').value;
         let valid   = true;
 
-        document.getElementById('emailError').textContent    = '';
+        document.getElementById('employeeIdError').textContent = '';
         document.getElementById('pwError').textContent       = '';
         document.getElementById('captchaError').textContent  = '';
         alertBox.style.display = 'none';
 
-        if (!email) {
-            document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+        if (!employeeId) {
+            document.getElementById('employeeIdError').textContent = 'Please enter your employee number.';
             valid = false;
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+        } else if (!/^\d{10}$/.test(employeeId)) {
+            document.getElementById('employeeIdError').textContent = 'Employee number must be exactly 10 digits.';
             valid = false;
         }
 
         if (!pw) {
-            document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+            document.getElementById('pwError').textContent = 'Please enter your password.';
             valid = false;
         } else if (pw.length < 6) {
-            document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+            document.getElementById('pwError').textContent = 'Minimum 6 characters.';
             valid = false;
         }
 
         const captchaToken = grecaptcha.getResponse();
         if (!captchaToken) {
-            document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+            document.getElementById('captchaError').textContent = 'Please complete the captcha.';
             valid = false;
         }
 
@@ -63,6 +63,6 @@
         loginBtn.disabled = false;
         grecaptcha.reset();
 
-        alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+        alertMsg.textContent = 'Invalid credentials. Verify your employee number and password.'
         alertBox.style.display = 'flex';
     });

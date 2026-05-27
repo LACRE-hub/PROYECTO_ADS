@@ -20,38 +20,38 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('patientEmail').value.trim();
+    const patientNumber = document.getElementById('patientPatientNumber').value.trim();
     const pw    = document.getElementById('patientPassword').value;
     let valid   = true;
 
     /* Limpiar errores previos */
-    document.getElementById('emailError').textContent    = '';
+    document.getElementById('patientNumberError').textContent = '';
     document.getElementById('pwError').textContent       = '';
     document.getElementById('captchaError').textContent  = '';
     alertBox.style.display = 'none';
 
-    /* Validar email */
-    if (!email) {
-        document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+    /* Validate patient number */
+    if (!patientNumber) {
+        document.getElementById('patientNumberError').textContent = 'Please enter your patient number.';
         valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+    } else if (!/^\d{10}$/.test(patientNumber)) {
+        document.getElementById('patientNumberError').textContent = 'Patient number must be exactly 10 digits.';
         valid = false;
     }
 
-    /* Validar password */
+    /* Validate password */
     if (!pw) {
-        document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+        document.getElementById('pwError').textContent = 'Please enter your password.';
         valid = false;
     } else if (pw.length < 6) {
-        document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+        document.getElementById('pwError').textContent = 'Minimum 6 characters.';
         valid = false;
     }
 
-    /* Validar captcha */
+    /* Validate captcha */
     const captchaToken = grecaptcha.getResponse();
     if (!captchaToken) {
-        document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+        document.getElementById('captchaError').textContent = 'Please complete the captcha.';
         valid = false;
     }
 
@@ -71,6 +71,6 @@ form.addEventListener('submit', async (e) => {
     loginBtn.disabled = false;
     grecaptcha.reset();
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+    alertMsg.textContent = 'Invalid credentials. Verify your patient number and password.'
     alertBox.style.display = 'flex';
 });

@@ -1,3 +1,3 @@
-"# Proyecto Hospitalario" 
+"# Hospital Project"
 # PROYECTO_ADS
-En este repositorio se encuentra el desarrollo del proyecto del actor administrador del sistema hospitalario. 
+This repository contains the development work for the administrator actor of the hospital management system.

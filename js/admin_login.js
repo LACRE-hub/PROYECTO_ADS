@@ -20,38 +20,44 @@ const alertMsg  = document.getElementById('alertMessage');
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById('adminEmail').value.trim();
-    const pw    = document.getElementById('adminPassword').value;
-    let valid   = true;
+    const employeeId = document.getElementById('adminEmployeeId').value.trim().replace(/\D/g, '');
+    const pw         = document.getElementById('adminPassword').value.trim();
+    let valid        = true;
 
     /* Limpiar errores previos */
-    document.getElementById('emailError').textContent    = '';
-    document.getElementById('pwError').textContent       = '';
-    document.getElementById('captchaError').textContent  = '';
+    document.getElementById('employeeIdError').textContent = '';
+    document.getElementById('pwError').textContent         = '';
+    document.getElementById('captchaError').textContent    = '';
     alertBox.style.display = 'none';
 
-    /* Validar email */
-    if (!email) {
-        document.getElementById('emailError').textContent = 'Por favor ingresa tu correo.';
+    /* Validate employee number */
+    if (!employeeId) {
+        document.getElementById('employeeIdError').textContent = 'Please enter your employee number.';
         valid = false;
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById('emailError').textContent = 'Ingresa un correo válido.';
+    } else if (!/^\d{10}$/.test(employeeId)) {
+        document.getElementById('employeeIdError').textContent = 'Employee number must be exactly 10 digits.';
         valid = false;
     }
 
-    /* Validar password */
+    /* Validate password */
     if (!pw) {
-        document.getElementById('pwError').textContent = 'Por favor ingresa tu contraseña.';
+        document.getElementById('pwError').textContent = 'Please enter your password.';
         valid = false;
     } else if (pw.length < 6) {
-        document.getElementById('pwError').textContent = 'Mínimo 6 caracteres.';
+        document.getElementById('pwError').textContent = 'Minimum 6 characters.';
         valid = false;
     }
 
-    /* Validar captcha */
-    const captchaToken = grecaptcha.getResponse();
-    if (!captchaToken) {
-        document.getElementById('captchaError').textContent = 'Por favor completa el captcha.';
+    /* Validate captcha */
+    let captchaToken = '';
+    try {
+        captchaToken = grecaptcha.getResponse();
+    } catch (err) {
+        captchaToken = '';
+    }
+
+    if (!captchaToken || captchaToken.length === 0) {
+        document.getElementById('captchaError').textContent = 'Please complete the captcha.';
         valid = false;
     }
 
@@ -60,17 +66,16 @@ form.addEventListener('submit', async (e) => {
     /* Loading state */
     btnText.style.display   = 'none';
     btnLoader.style.display = 'inline-flex';
-    loginBtn.disabled = true;
+    loginBtn.disabled       = true;
 
     /* Simulated auth delay */
-    await new Promise(r => setTimeout(r, 1800));
+    await new Promise(r => setTimeout(r, 1500));
 
     /* Credential check */
-    const ADMIN_EMAIL    = 'admin_medicore@medicine.com';
-    const ADMIN_PASSWORD = 'MediCore_1917';
+    const ADMIN_EMPLOYEE_ID = '2024630141';
+    const ADMIN_PASSWORD    = 'MediCore_1917';
 
-    if (email === ADMIN_EMAIL && pw === ADMIN_PASSWORD) {
-        /* Redirect to Admin Panel */
+    if (employeeId === ADMIN_EMPLOYEE_ID && pw === ADMIN_PASSWORD) {
         window.location.href = 'panel_Administrador.html';
         return;
     }
@@ -78,9 +83,10 @@ form.addEventListener('submit', async (e) => {
     /* Invalid credentials */
     btnText.style.display   = 'inline-flex';
     btnLoader.style.display = 'none';
-    loginBtn.disabled = false;
-    grecaptcha.reset();
+    loginBtn.disabled       = false;
 
-    alertMsg.textContent = 'Credenciales inválidas. Verifica tu correo y contraseña.';
+    try { grecaptcha.reset(); } catch(err) {}
+
+    alertMsg.textContent   = 'Invalid credentials. Verify your employee number and password.';
     alertBox.style.display = 'flex';
 });
