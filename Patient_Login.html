@@ -54,41 +54,40 @@
 
           <!-- Badge -->
           <div class="left-badge">
-            <i class="fas fa-notes-medical me-2"></i>Patient Portal
+            <i class="fas fa-calendar-check me-2"></i>Portal de Pacientes
           </div>
 
           <h2 class="left-heading">
-            Manage your<br />
-            <span class="text-gradient-light">health journey</span><br />
-            with confidence.
+            Consulta tu<br />
+            <span class="text-gradient-light">próxima cita</span><br />
+            de forma segura.
           </h2>
 
           <p class="left-sub">
-            View medical records, upcoming appointments, prescriptions, and
-            secure communication with your care team in one place.
+            Ingresa con tu número de expediente y las primeras cuatro letras de tu apellido paterno para consultar la fecha y hora de tu próxima cita médica.
           </p>
 
           <!-- Feature list -->
           <div class="left-features">
             <div class="left-feature-item">
-              <span class="lf-icon"><i class="fas fa-file-medical-alt"></i></span>
-              <div>
-                <strong>Health Records</strong>
-                <span>View test results, history, and care notes</span>
-              </div>
-            </div>
-            <div class="left-feature-item">
               <span class="lf-icon"><i class="fas fa-calendar-check"></i></span>
               <div>
-                <strong>Appointments</strong>
-                <span>Track upcoming visits and doctor schedules</span>
+                <strong>Próxima Cita</strong>
+                <span>Consulta fecha, hora y médico asignado</span>
               </div>
             </div>
             <div class="left-feature-item">
-              <span class="lf-icon"><i class="fas fa-pills"></i></span>
+              <span class="lf-icon"><i class="fas fa-id-card"></i></span>
               <div>
-                <strong>Prescriptions</strong>
-                <span>Access medication details and refill alerts</span>
+                <strong>Acceso Simple</strong>
+                <span>Solo tu número de expediente y apellido</span>
+              </div>
+            </div>
+            <div class="left-feature-item">
+              <span class="lf-icon"><i class="fas fa-shield-alt"></i></span>
+              <div>
+                <strong>Acceso Seguro</strong>
+                <span>Sesión cifrada y monitorizada</span>
               </div>
             </div>
           </div>
@@ -129,9 +128,9 @@
             <div class="form-icon-wrap">
               <i class="fas fa-user"></i>
             </div>
-            <h1 class="form-title">Patient Login</h1>
+            <h1 class="form-title">Acceso Paciente</h1>
             <p class="form-subtitle">
-              Access your health records and manage your appointments
+              Ingresa tu número de expediente, las primeras 4 letras de tu apellido paterno y tu fecha de nacimiento
             </p>
           </div>
 
@@ -147,13 +146,13 @@
           <form id="patientLoginForm" novalidate>
             <div class="field-group">
               <label for="patientPatientNumber" class="field-label">
-                <i class="fas fa-id-card me-2"></i>Patient Number
+                <i class="fas fa-id-card me-2"></i>Número de Expediente
               </label>
               <input
-                type="number"
+                type="text"
                 id="patientPatientNumber"
                 class="field-input"
-                placeholder="9876543210"
+                placeholder="Ej. EXP0001234"
                 autocomplete="username"
                 required
               />
@@ -162,15 +161,17 @@
 
             <div class="field-group">
               <label for="patientPassword" class="field-label">
-                <i class="fas fa-lock me-2"></i>Password
+                <i class="fas fa-lock me-2"></i>Contraseña
+                <span style="font-weight:400; color:#94a3b8; font-size:.76rem; margin-left:.4rem;">(primeras 4 letras de tu apellido paterno)</span>
               </label>
               <div class="input-password-wrap">
                 <input
                   type="password"
                   id="patientPassword"
                   class="field-input"
-                  placeholder="Enter your password"
+                  placeholder="Ej. GARC"
                   autocomplete="current-password"
+                  maxlength="4"
                   required
                 />
                 <button
@@ -189,17 +190,31 @@
               <label class="remember-label">
                 <input type="checkbox" id="rememberMe" />
                 <span class="checkmark"></span>
-                Remember this device
+                Recordar este dispositivo
               </label>
-              <a href="#" class="forgot-link">Forgot password?</a>
+              <a href="#" class="forgot-link">¿Olvidaste tu acceso?</a>
+            </div>
+
+            <div class="field-group">
+              <label for="patientDob" class="field-label">
+                <i class="fas fa-calendar me-2"></i>Fecha de Nacimiento
+              </label>
+              <input
+                type="date"
+                id="patientDob"
+                class="field-input"
+                autocomplete="bday"
+                required
+              />
+              <span class="field-error" id="dobError"></span>
             </div>
 
             <button type="submit" class="btn-login" id="loginBtn">
               <span class="btn-login-text">
-                <i class="fas fa-sign-in-alt me-2"></i>Sign In to Patient Portal
+                <i class="fas fa-sign-in-alt me-2"></i>Ingresar al Sistema
               </span>
               <span class="btn-login-loading" style="display: none">
-                <span class="spinner"></span> Authenticating…
+                <span class="spinner"></span> Autenticando…
               </span>
             </button>
 
@@ -216,7 +231,7 @@
 
           <!-- Divider -->
           <div class="form-divider">
-            <span>or access another portal</span>
+            <span>o accede con otro rol</span>
           </div>
 
           <!-- Other portals -->
@@ -243,7 +258,7 @@
 
           <p class="form-footer-note">
             <i class="fas fa-lock me-1"></i>
-            All sessions are encrypted and monitored for security.
+            Todas las sesiones están cifradas y monitorizadas por seguridad.
           </p>
         </div>
       </div>
