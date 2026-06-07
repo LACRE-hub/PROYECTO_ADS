@@ -3,435 +3,632 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><!-- Título de tu sistema --></title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Tu CSS principal -->
-  <link rel="stylesheet" href="css/admin_dashboard.css" />
+  <title>MediCore HMS – Panel Administrador</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="css/panel_admin.css" rel="stylesheet"/>
 </head>
 <body>
 
-<!-- Overlay para menú móvil -->
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<!-- SESSION WARNING BAR -->
+<div id="sessionWarning" class="session-warning d-none">
+  <i class="fas fa-clock"></i>
+  Tu sesión expirará en <strong id="sessionCountdown">2:00</strong> minutos por inactividad.
+  <button onclick="pingSession()" class="btn btn-sm btn-light ms-3">Mantener sesión</button>
+</div>
 
-<!-- ════════ SIDEBAR ════════ -->
-<aside class="sidebar" id="sidebar">
-
-  <!-- Marca / Logo -->
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
   <div class="sidebar-brand">
-    <div class="brand-icon">
-      <i class="fas fa-layer-group"></i>
-    </div>
-    <div class="brand-name">
-      <!-- Nombre del sistema -->
-      <span><!-- Subnombre o palabra destacada --></span>
-      <small><!-- Descripción corta del sistema --></small>
-    </div>
+    <i class="fas fa-hospital-alt brand-icon"></i>
+    <span class="brand-text">MediCore</span>
   </div>
-
-  <!-- Navegación principal -->
-  <nav class="nav-section">
-    <div class="nav-section-label"><!-- Nombre de sección --></div>
-
-    <a href="#" class="nav-item active">
-      <span class="nav-icon"><i class="fas fa-th-large"></i></span>
-      <!-- Opción de menú -->
-    </a>
-
-    <a href="#" class="nav-item">
-      <span class="nav-icon"><i class="fas fa-folder"></i></span>
-      <!-- Opción de menú -->
-      <!-- <span class="nav-badge">0</span> -->
-    </a>
-
-    <a href="#" class="nav-item">
-      <span class="nav-icon"><i class="fas fa-users"></i></span>
-      <!-- Opción de menú -->
-    </a>
-
-    <a href="#" class="nav-item">
-      <span class="nav-icon"><i class="fas fa-calendar-check"></i></span>
-      <!-- Opción de menú -->
-    </a>
-  </nav>
-
-  <!-- Segunda sección de navegación -->
-  <nav class="nav-section">
-    <div class="nav-section-label"><!-- Nombre de sección --></div>
-
-    <a href="#" class="nav-item">
-      <span class="nav-icon"><i class="fas fa-chart-pie"></i></span>
-      <!-- Opción de menú -->
-    </a>
-
-    <a href="#" class="nav-item">
-      <span class="nav-icon"><i class="fas fa-cog"></i></span>
-      <!-- Opción de menú -->
-    </a>
-  </nav>
-
-  <!-- Usuario / Perfil lateral -->
-  <div class="sidebar-bottom">
-    <div class="sidebar-user">
-      <div class="user-avatar"><!-- IN --></div>
-      <div class="user-info">
-        <div class="user-name"><!-- Nombre de usuario --></div>
-        <div class="user-role"><!-- Rol de usuario --></div>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a href="#" class="nav-link active" data-section="dashboard">
+        <i class="fas fa-tachometer-alt nav-icon"></i>
+        <span class="nav-label">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="notificaciones">
+        <i class="fas fa-bell nav-icon"></i>
+        <span class="nav-label">Notificaciones</span>
+        <span class="nav-badge" id="badgeNotif">0</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="empleados">
+        <i class="fas fa-users nav-icon"></i>
+        <span class="nav-label">Empleados</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="precios">
+        <i class="fas fa-tag nav-icon"></i>
+        <span class="nav-label">Validar Precios</span>
+        <span class="nav-badge" id="badgePrecios">0</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="pagos">
+        <i class="fas fa-money-bill-wave nav-icon"></i>
+        <span class="nav-label">Pagos</span>
+        <span class="nav-badge" id="badgePagos">0</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="mantenimiento">
+        <i class="fas fa-tools nav-icon"></i>
+        <span class="nav-label">Mantenimiento</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="reportes">
+        <i class="fas fa-chart-bar nav-icon"></i>
+        <span class="nav-label">Reportes</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="#" class="nav-link" data-section="auditoria">
+        <i class="fas fa-shield-alt nav-icon"></i>
+        <span class="nav-label">Bitácora</span>
+      </a>
+    </li>
+  </ul>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <i class="fas fa-user-shield user-avatar"></i>
+      <div class="user-text">
+        <div class="user-name" id="adminNombre">Administrador</div>
+        <div class="user-role">Admin. Sistema</div>
       </div>
-      <i class="fas fa-ellipsis-v" style="color:#475569;font-size:.8rem;margin-left:auto;"></i>
     </div>
+    <a href="php/logout.php" class="btn-logout" title="Cerrar sesión">
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
   </div>
+</nav>
 
-</aside>
-
-<!-- ════════ CONTENEDOR PRINCIPAL ════════ -->
-<div class="main-wrap">
-
+<!-- MAIN CONTENT -->
+<main class="main-content" id="mainContent">
   <!-- TOPBAR -->
   <header class="topbar">
-    <button class="hamburger" id="hamburgerBtn" aria-label="Abrir o cerrar menú lateral">
+    <button class="sidebar-toggle" id="sidebarToggle">
       <i class="fas fa-bars"></i>
     </button>
-
-    <div class="topbar-title">
-      <!-- Título de página -->
-      <span><!-- Subtítulo / ruta --></span>
-    </div>
-
-    <!-- Buscador -->
-    <div class="topbar-search">
-      <i class="fas fa-search"></i>
-      <input type="text" placeholder="Buscar..." />
-    </div>
-
+    <div class="topbar-title" id="topbarTitle">Dashboard</div>
     <div class="topbar-actions">
-      <button class="topbar-btn" title="Notificaciones">
+      <button class="btn-notif" id="btnNotifTop" data-section="notificaciones">
         <i class="fas fa-bell"></i>
-        <!-- <span class="badge">0</span> -->
+        <span class="notif-dot d-none" id="notifDot"></span>
       </button>
-
-      <button class="topbar-btn" title="Mensajes">
-        <i class="fas fa-envelope"></i>
-        <!-- <span class="badge">0</span> -->
-      </button>
-
-      <div class="topbar-divider"></div>
-
-      <div class="topbar-profile">
-        <div class="avatar-placeholder"><!-- IN --></div>
-        <div>
-          <div class="profile-name"><!-- Nombre --></div>
-          <div class="profile-role"><!-- Rol --></div>
-        </div>
-        <i class="fas fa-chevron-down"></i>
-      </div>
+      <span class="topbar-date" id="topbarDate"></span>
     </div>
   </header>
 
-  <!-- CONTENIDO DE PÁGINA -->
-  <main class="page-content">
+  <!-- ═══════════════════════════════════════════ DASHBOARD ═══ -->
+  <section class="section active" id="section-dashboard">
+    <div class="section-header">
+      <h2 class="section-title">Dashboard General</h2>
+      <p class="section-subtitle">Resumen del sistema hospitalario en tiempo real</p>
+    </div>
 
-    <!-- ── BANNER PRINCIPAL ── -->
-    <section class="welcome-card">
-      <div class="welcome-text">
-        <div class="welcome-greeting">
-          <i class="fas fa-sun me-1"></i>
-          <!-- Saludo o etiqueta -->
-        </div>
-        <div class="welcome-name">
-          <!-- Título principal del banner -->
-          <span><!-- Texto destacado --></span>
-        </div>
-        <div class="welcome-sub">
-          <!-- Descripción breve del módulo, sistema o pantalla -->
+    <!-- KPI CARDS -->
+    <div class="kpi-grid" id="kpiGrid">
+      <div class="kpi-card">
+        <div class="kpi-icon blue"><i class="fas fa-users"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiEmpleados">–</div>
+          <div class="kpi-label">Empleados activos</div>
         </div>
       </div>
-
-      <div class="welcome-stats">
-        <div class="w-stat">
-          <div class="w-stat-icon"><i class="fas fa-chart-line"></i></div>
-          <div class="w-stat-num"><!-- 0 --></div>
-          <div class="w-stat-label"><!-- Indicador --></div>
-        </div>
-
-        <div class="w-stat">
-          <div class="w-stat-icon"><i class="fas fa-users"></i></div>
-          <div class="w-stat-num"><!-- 0 --></div>
-          <div class="w-stat-label"><!-- Indicador --></div>
-        </div>
-
-        <div class="w-stat">
-          <div class="w-stat-icon"><i class="fas fa-database"></i></div>
-          <div class="w-stat-num"><!-- 0 --></div>
-          <div class="w-stat-label"><!-- Indicador --></div>
+      <div class="kpi-card">
+        <div class="kpi-icon green"><i class="fas fa-procedures"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiPacientes">–</div>
+          <div class="kpi-label">Pacientes registrados</div>
         </div>
       </div>
-    </section>
-
-    <!-- ── TARJETAS DE ESTADÍSTICAS ── -->
-    <section class="stat-cards">
-      <div class="stat-card">
-        <div class="stat-icon-wrap orange"><i class="fas fa-chart-bar"></i></div>
-        <div class="stat-info">
-          <div class="stat-num"><!-- 0 --></div>
-          <div class="stat-label"><!-- Nombre del indicador --></div>
-          <div class="stat-change up"><!-- Variación o nota --></div>
+      <div class="kpi-card">
+        <div class="kpi-icon purple"><i class="fas fa-calendar-check"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiCitasHoy">–</div>
+          <div class="kpi-label">Citas hoy</div>
         </div>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-icon-wrap green"><i class="fas fa-plus"></i></div>
-        <div class="stat-info">
-          <div class="stat-num"><!-- 0 --></div>
-          <div class="stat-label"><!-- Nombre del indicador --></div>
-          <div class="stat-change up"><!-- Variación o nota --></div>
+      <div class="kpi-card">
+        <div class="kpi-icon orange"><i class="fas fa-file-invoice-dollar"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiPagosPend">–</div>
+          <div class="kpi-label">Pagos pendientes</div>
         </div>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-icon-wrap blue"><i class="fas fa-list"></i></div>
-        <div class="stat-info">
-          <div class="stat-num"><!-- 0 --></div>
-          <div class="stat-label"><!-- Nombre del indicador --></div>
-          <div class="stat-change down"><!-- Variación o nota --></div>
+      <div class="kpi-card">
+        <div class="kpi-icon yellow"><i class="fas fa-tag"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiPreciosPend">–</div>
+          <div class="kpi-label">Precios sin validar</div>
         </div>
       </div>
-
-      <div class="stat-card">
-        <div class="stat-icon-wrap red"><i class="fas fa-exclamation-circle"></i></div>
-        <div class="stat-info">
-          <div class="stat-num"><!-- 0 --></div>
-          <div class="stat-label"><!-- Nombre del indicador --></div>
-          <div class="stat-change down"><!-- Variación o nota --></div>
+      <div class="kpi-card">
+        <div class="kpi-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="kpi-info">
+          <div class="kpi-value" id="kpiStock">–</div>
+          <div class="kpi-label">Stock crítico</div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- ── ACCIONES RÁPIDAS ── -->
-    <section>
-      <div class="section-header">
-        <div class="section-title">
-          <i class="fas fa-bolt"></i>
-          <!-- Título de sección -->
+    <!-- CHARTS ROW 1 -->
+    <div class="charts-grid">
+      <div class="chart-card wide">
+        <div class="chart-header">
+          <h3 class="chart-title"><i class="fas fa-chart-line me-2 text-primary"></i>Ingresos Mensuales</h3>
         </div>
-        <a href="#" class="section-link">
-          <!-- Enlace opcional --> <i class="fas fa-arrow-right"></i>
-        </a>
+        <canvas id="chartIngresos" height="100"></canvas>
       </div>
-
-      <div class="quick-actions">
-        <a href="#" class="action-card">
-          <div class="action-icon"><i class="fas fa-plus"></i></div>
-          <div>
-            <div class="action-label"><!-- Acción --></div>
-            <div class="action-sub"><!-- Descripción --></div>
-          </div>
-        </a>
-
-        <a href="#" class="action-card">
-          <div class="action-icon"><i class="fas fa-edit"></i></div>
-          <div>
-            <div class="action-label"><!-- Acción --></div>
-            <div class="action-sub"><!-- Descripción --></div>
-          </div>
-        </a>
-
-        <a href="#" class="action-card">
-          <div class="action-icon"><i class="fas fa-file"></i></div>
-          <div>
-            <div class="action-label"><!-- Acción --></div>
-            <div class="action-sub"><!-- Descripción --></div>
-          </div>
-        </a>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title"><i class="fas fa-calendar me-2 text-success"></i>Estado de Citas</h3>
+        </div>
+        <canvas id="chartCitas" height="180"></canvas>
       </div>
-    </section>
+    </div>
 
-    <!-- ── FILA DE GRÁFICAS / TARJETAS ── -->
-    <section class="dashboard-grid">
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-chart-area"></i>
-            <!-- Título de gráfica -->
-          </div>
-          <a href="#" class="card-action"><!-- Acción --></a>
+    <!-- CHARTS ROW 2 -->
+    <div class="charts-grid mt-4">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title"><i class="fas fa-pills me-2 text-warning"></i>Top Medicamentos</h3>
         </div>
+        <canvas id="chartMeds" height="180"></canvas>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <h3 class="chart-title"><i class="fas fa-stethoscope me-2 text-info"></i>Consultas por Tipo</h3>
+        </div>
+        <canvas id="chartConsultas" height="180"></canvas>
+      </div>
+    </div>
+  </section>
 
-        <div class="chart-area" id="activityChart">
-          <!-- Las barras se generan desde JavaScript. Edita chartData al final del archivo. -->
+  <!-- ═══════════════════════════════════════════ NOTIFICACIONES ═══ -->
+  <section class="section" id="section-notificaciones">
+    <div class="section-header">
+      <h2 class="section-title">Centro de Notificaciones</h2>
+      <p class="section-subtitle">Alertas y acciones pendientes del sistema</p>
+    </div>
+    <div id="notifContainer" class="notif-list">
+      <div class="empty-state"><i class="fas fa-check-circle"></i><p>Sin notificaciones pendientes</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ EMPLEADOS ═══ -->
+  <section class="section" id="section-empleados">
+    <div class="section-header d-flex justify-content-between align-items-start">
+      <div>
+        <h2 class="section-title">Gestión de Empleados</h2>
+        <p class="section-subtitle">CRUD completo, bajas con período de gracia y reasignación</p>
+      </div>
+      <button class="btn-primary-action" id="btnNuevoEmpleado">
+        <i class="fas fa-user-plus me-2"></i>Nuevo Empleado
+      </button>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-bar">
+      <div class="filter-group">
+        <input type="text" id="filterEmpNombre" class="filter-input" placeholder="Buscar por nombre…"/>
+      </div>
+      <div class="filter-group">
+        <select id="filterEmpRol" class="filter-select">
+          <option value="">Todos los roles</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <select id="filterEmpEstatus" class="filter-select">
+          <option value="">Todos los estatus</option>
+          <option value="Activo">Activo</option>
+          <option value="Por dar de baja">Por dar de baja</option>
+          <option value="Baja">Baja</option>
+        </select>
+      </div>
+      <button class="btn-filter" id="btnFilterEmp"><i class="fas fa-search me-1"></i>Buscar</button>
+    </div>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Núm. Empleado</th>
+            <th>Nombre completo</th>
+            <th>Rol / Tipo</th>
+            <th>Consultorio</th>
+            <th>Estatus</th>
+            <th>Fecha baja</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaEmpleados"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ PRECIOS ═══ -->
+  <section class="section" id="section-precios">
+    <div class="section-header">
+      <h2 class="section-title">Validación de Precios</h2>
+      <p class="section-subtitle">Aprobación o rechazo de precios propuestos por Farmacia</p>
+    </div>
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Medicamento</th>
+            <th>Lote / Caducidad</th>
+            <th>Farmacéutico</th>
+            <th>Precio actual</th>
+            <th>Precio propuesto</th>
+            <th>Estatus</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaPrecios"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ PAGOS ═══ -->
+  <section class="section" id="section-pagos">
+    <div class="section-header d-flex justify-content-between align-items-start">
+      <div>
+        <h2 class="section-title">Gestión de Pagos</h2>
+        <p class="section-subtitle">Autorización de modificaciones y cancelación de emergencia</p>
+      </div>
+      <button class="btn-danger-action" id="btnCancelEmergencia">
+        <i class="fas fa-ban me-2"></i>Cancelación de Emergencia
+      </button>
+    </div>
+
+    <h5 class="subsection-title">Modificaciones Pendientes de Autorización</h5>
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID Mod.</th>
+            <th>Folio / Monto</th>
+            <th>Paciente</th>
+            <th>Motivo</th>
+            <th>Solicitado por</th>
+            <th>Fecha solicitud</th>
+            <th>Estatus pago</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaPagos"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ MANTENIMIENTO ═══ -->
+  <section class="section" id="section-mantenimiento">
+    <div class="section-header">
+      <h2 class="section-title">Programar Mantenimiento</h2>
+      <p class="section-subtitle">Duración máxima 15 minutos · Se alerta automáticamente a 5 áreas</p>
+    </div>
+
+    <div class="card-form">
+      <h5 class="card-form-title"><i class="fas fa-plus-circle me-2"></i>Nuevo Mantenimiento</h5>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Fecha y hora de inicio</label>
+          <input type="datetime-local" id="mantFechaHora" class="form-control"/>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Duración (min) <small class="text-danger">máx 15</small></label>
+          <input type="number" id="mantDuracion" class="form-control" min="1" max="15" placeholder="1–15"/>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Descripción del mantenimiento</label>
+          <input type="text" id="mantDescripcion" class="form-control" placeholder="Describe el mantenimiento…"/>
+        </div>
+        <div class="col-12">
+          <button class="btn-primary-action" id="btnCrearMant">
+            <i class="fas fa-calendar-plus me-2"></i>Programar Mantenimiento
+          </button>
+          <span class="text-muted ms-3 small"><i class="fas fa-info-circle me-1"></i>Se enviará alerta a: Urgencias, Hospitalización, Médicos, Enfermería, Farmacia</span>
         </div>
       </div>
+    </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-chart-pie"></i>
-            <!-- Título de tarjeta -->
-          </div>
-          <a href="#" class="card-action"><!-- Acción --></a>
+    <h5 class="subsection-title mt-4">Historial de Mantenimientos</h5>
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha y hora</th>
+            <th>Duración</th>
+            <th>Descripción</th>
+            <th>Estatus</th>
+            <th>Alertas</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tablaMantenimiento"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ REPORTES ═══ -->
+  <section class="section" id="section-reportes">
+    <div class="section-header">
+      <h2 class="section-title">Reportes del Sistema</h2>
+      <p class="section-subtitle">Análisis financiero, clínico, laboratorio, citas, farmacia e inventario</p>
+    </div>
+
+    <!-- MES SELECTOR -->
+    <div class="filters-bar mb-4">
+      <div class="filter-group">
+        <label class="filter-label">Mes de reporte:</label>
+        <input type="month" id="reporteMes" class="filter-input" />
+      </div>
+      <button class="btn-filter" id="btnCargarReporte"><i class="fas fa-sync me-1"></i>Actualizar</button>
+    </div>
+
+    <!-- TABS -->
+    <div class="report-tabs">
+      <button class="report-tab active" data-reporte="financiero"><i class="fas fa-dollar-sign me-1"></i>Financiero</button>
+      <button class="report-tab" data-reporte="clinico"><i class="fas fa-stethoscope me-1"></i>Clínico</button>
+      <button class="report-tab" data-reporte="laboratorio"><i class="fas fa-flask me-1"></i>Laboratorio</button>
+      <button class="report-tab" data-reporte="citas"><i class="fas fa-calendar-alt me-1"></i>Citas</button>
+      <button class="report-tab" data-reporte="farmacia"><i class="fas fa-pills me-1"></i>Farmacia</button>
+      <button class="report-tab" data-reporte="inventario"><i class="fas fa-boxes me-1"></i>Inventario</button>
+    </div>
+
+    <div id="reporteContenido" class="mt-4">
+      <div class="empty-state"><i class="fas fa-chart-bar"></i><p>Selecciona un tipo de reporte</p></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ AUDITORÍA ═══ -->
+  <section class="section" id="section-auditoria">
+    <div class="section-header">
+      <h2 class="section-title">Bitácora de Auditoría</h2>
+      <p class="section-subtitle">Registro completo de acciones del sistema (RF-24)</p>
+    </div>
+
+    <div class="filters-bar flex-wrap gap-2">
+      <div class="filter-group">
+        <label class="filter-label">Desde:</label>
+        <input type="date" id="auditDesde" class="filter-input"/>
+      </div>
+      <div class="filter-group">
+        <label class="filter-label">Hasta:</label>
+        <input type="date" id="auditHasta" class="filter-input"/>
+      </div>
+      <div class="filter-group">
+        <select id="auditModulo" class="filter-select"><option value="">Todos los módulos</option></select>
+      </div>
+      <div class="filter-group">
+        <input type="text" id="auditAccion" class="filter-input" placeholder="Filtrar acción…"/>
+      </div>
+      <button class="btn-filter" id="btnBuscarAudit"><i class="fas fa-search me-1"></i>Buscar</button>
+    </div>
+
+    <div class="table-container">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Fecha / Hora</th>
+            <th>Usuario</th>
+            <th>Rol</th>
+            <th>Módulo</th>
+            <th>Acción</th>
+            <th>IP</th>
+            <th>Detalle</th>
+          </tr>
+        </thead>
+        <tbody id="tablaAudit"></tbody>
+      </table>
+    </div>
+    <div class="pagination-bar" id="auditPagination"></div>
+  </section>
+
+</main><!-- /main-content -->
+
+<!-- ══════════════════════ MODALS ══════════════════════ -->
+
+<!-- MODAL: EMPLEADO (crear / editar) -->
+<div class="modal-overlay" id="modalEmpleado">
+  <div class="modal-box modal-lg">
+    <div class="modal-box-header">
+      <h4 class="modal-box-title" id="modalEmpTitle">Nuevo Empleado</h4>
+      <button class="modal-close" data-close="modalEmpleado">&times;</button>
+    </div>
+    <div class="modal-box-body">
+      <input type="hidden" id="empId"/>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Número de empleado <span class="req">*</span></label>
+          <input type="text" id="empNumero" class="form-control" maxlength="10" placeholder="10 dígitos"/>
         </div>
-
-        <div class="donut-area">
-          <!-- Puedes reemplazar este bloque por una gráfica real o contenido propio -->
-          <div class="donut-legend">
-            <div class="legend-item">
-              <span class="legend-dot"></span>
-              <!-- Categoría -->
-              <span class="legend-val"><!-- 0 --></span>
-            </div>
-          </div>
+        <div class="col-md-4">
+          <label class="form-label">Nombre <span class="req">*</span></label>
+          <input type="text" id="empNombre" class="form-control"/>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Apellido paterno <span class="req">*</span></label>
+          <input type="text" id="empApPat" class="form-control"/>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Apellido materno</label>
+          <input type="text" id="empApMat" class="form-control"/>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Rol <span class="req">*</span></label>
+          <select id="empRol" class="form-control"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Tipo / Especialidad</label>
+          <input type="text" id="empTipo" class="form-control" placeholder="Ej: Cirugía General"/>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Consultorio</label>
+          <select id="empConsultorio" class="form-control">
+            <option value="">Sin consultorio</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Turno</label>
+          <select id="empTurno" class="form-control">
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+            <option value="Nocturno">Nocturno</option>
+            <option value="Mixto">Mixto</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Área asignada</label>
+          <input type="text" id="empArea" class="form-control" placeholder="Ej: Urgencias, Farmacia…"/>
+        </div>
+        <div class="col-md-6" id="empPasswordGroup">
+          <label class="form-label">Contraseña <span class="req" id="empPasswordReq">*</span> <small class="text-muted">(mín. 8 caracteres)</small></label>
+          <input type="password" id="empPassword" class="form-control"/>
+        </div>
+        <div class="col-md-6" id="empPasswordConfGroup">
+          <label class="form-label">Confirmar contraseña</label>
+          <input type="password" id="empPasswordConf" class="form-control"/>
         </div>
       </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-info-circle"></i>
-            <!-- Título de tarjeta -->
-          </div>
-          <a href="#" class="card-action"><!-- Acción --></a>
-        </div>
-
-        <div>
-          <!-- Contenido libre -->
-        </div>
-      </div>
-
-    </section>
-
-    <!-- ── TABLA + LISTA LATERAL ── -->
-    <section class="dashboard-grid two-col">
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-table"></i>
-            <!-- Título de tabla -->
-          </div>
-          <a href="#" class="card-action"><!-- Acción --></a>
-        </div>
-
-        <table class="patient-table">
-          <thead>
-            <tr>
-              <th><!-- Columna 1 --></th>
-              <th><!-- Columna 2 --></th>
-              <th><!-- Columna 3 --></th>
-              <th><!-- Columna 4 --></th>
-              <th><!-- Columna 5 --></th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Agrega tus filas aquí -->
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">
-            <i class="fas fa-list-ul"></i>
-            <!-- Título de lista -->
-          </div>
-          <a href="#" class="card-action"><!-- Acción --></a>
-        </div>
-
-        <div class="doctor-list">
-          <!-- Agrega tus elementos aquí -->
-        </div>
-
-        <div class="card-header" style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--border);">
-          <div class="card-title">
-            <i class="fas fa-history"></i>
-            <!-- Título de actividad -->
-          </div>
-        </div>
-
-        <div class="activity-list">
-          <!-- Agrega actividades aquí -->
-        </div>
-      </div>
-
-    </section>
-
-  </main>
+    </div>
+    <div class="modal-box-footer">
+      <button class="btn-secondary" data-close="modalEmpleado">Cancelar</button>
+      <button class="btn-primary-action" id="btnGuardarEmp">
+        <i class="fas fa-save me-1"></i>Guardar
+      </button>
+    </div>
+  </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- MODAL: INICIAR BAJA -->
+<div class="modal-overlay" id="modalBaja">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h4 class="modal-box-title">Iniciar proceso de baja</h4>
+      <button class="modal-close" data-close="modalBaja">&times;</button>
+    </div>
+    <div class="modal-box-body">
+      <div class="alert-info-box">
+        <i class="fas fa-info-circle"></i>
+        Se iniciará un período de gracia de <strong>30 días</strong>. Durante este tiempo el empleado seguirá activo y sus pacientes deberán ser reasignados antes de la baja definitiva.
+      </div>
+      <input type="hidden" id="bajaEmpId"/>
+      <p id="bajaEmpNombre" class="fw-semibold mb-3"></p>
+      <label class="form-label">Motivo de baja <span class="req">*</span></label>
+      <textarea id="bajaMotivo" class="form-control" rows="3" placeholder="Describe el motivo de la baja…"></textarea>
+    </div>
+    <div class="modal-box-footer">
+      <button class="btn-secondary" data-close="modalBaja">Cancelar</button>
+      <button class="btn-warning-action" id="btnConfirmarBaja">
+        <i class="fas fa-user-clock me-1"></i>Iniciar período de gracia
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: REASIGNAR PACIENTES -->
+<div class="modal-overlay" id="modalReasignar">
+  <div class="modal-box modal-lg">
+    <div class="modal-box-header">
+      <h4 class="modal-box-title">Reasignar pacientes</h4>
+      <button class="modal-close" data-close="modalReasignar">&times;</button>
+    </div>
+    <div class="modal-box-body">
+      <input type="hidden" id="reasEmpId"/>
+      <p class="mb-3">Selecciona el médico/empleado receptor para todos los pacientes pendientes:</p>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label class="form-label">Empleado receptor <span class="req">*</span></label>
+          <select id="reasReceptor" class="form-control"></select>
+        </div>
+      </div>
+      <h6>Pacientes / citas a reasignar:</h6>
+      <div id="reasPacientesList" class="pacientes-list"></div>
+    </div>
+    <div class="modal-box-footer">
+      <button class="btn-secondary" data-close="modalReasignar">Cancelar</button>
+      <button class="btn-primary-action" id="btnConfirmarReasig">
+        <i class="fas fa-exchange-alt me-1"></i>Confirmar reasignación
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: PRECIO -->
+<div class="modal-overlay" id="modalPrecio">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h4 class="modal-box-title" id="modalPrecioTitle">Validar precio</h4>
+      <button class="modal-close" data-close="modalPrecio">&times;</button>
+    </div>
+    <div class="modal-box-body">
+      <input type="hidden" id="precioLoteId"/>
+      <input type="hidden" id="precioAccion"/>
+      <div id="precioResumen" class="precio-resumen mb-3"></div>
+      <label class="form-label">Motivo / Observación</label>
+      <textarea id="precioMotivo" class="form-control" rows="3" placeholder="Opcional para aprobación, requerido para rechazo…"></textarea>
+    </div>
+    <div class="modal-box-footer">
+      <button class="btn-secondary" data-close="modalPrecio">Cancelar</button>
+      <button class="btn-primary-action" id="btnConfirmarPrecio">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: CANCELACIÓN EMERGENCIA -->
+<div class="modal-overlay" id="modalCancelacion">
+  <div class="modal-box">
+    <div class="modal-box-header">
+      <h4 class="modal-box-title"><i class="fas fa-exclamation-triangle text-danger me-2"></i>Cancelación de Emergencia</h4>
+      <button class="modal-close" data-close="modalCancelacion">&times;</button>
+    </div>
+    <div class="modal-box-body">
+      <div class="alert-danger-box mb-3">
+        <i class="fas fa-exclamation-circle"></i>
+        Esta acción cancela un pago de forma inmediata. Requiere verificación de identidad.
+      </div>
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">ID del pago a cancelar <span class="req">*</span></label>
+          <input type="number" id="cancelPagoId" class="form-control" placeholder="ID del pago"/>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Tu contraseña de administrador <span class="req">*</span></label>
+          <input type="password" id="cancelClave" class="form-control" placeholder="Verificación de identidad"/>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Motivo de cancelación <span class="req">*</span></label>
+          <textarea id="cancelMotivo" class="form-control" rows="3" placeholder="Describe el motivo…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-box-footer">
+      <button class="btn-secondary" data-close="modalCancelacion">Cancelar</button>
+      <button class="btn-danger-action" id="btnConfirmarCancelacion">
+        <i class="fas fa-ban me-1"></i>Cancelar pago
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toastContainer" class="toast-container"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-/* ── Sidebar toggle móvil ── */
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('sidebarOverlay');
-const hamburger = document.getElementById('hamburgerBtn');
-
-if (hamburger && sidebar && overlay) {
-  hamburger.addEventListener('click', () => {
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('active');
-  });
-
-  overlay.addEventListener('click', () => {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('active');
-  });
-}
-
-/* ── Active nav highlight ── */
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', function() {
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-/* ── Datos de gráfica editable ── */
-const chartData = [
-  // Ejemplo:
-  // { label: 'Ene', val: 10, active: false },
-  // { label: 'Feb', val: 20, active: true },
-];
-
-const chartEl = document.getElementById('activityChart');
-
-if (chartEl && chartData.length > 0) {
-  const max = Math.max(...chartData.map(d => d.val));
-
-  chartData.forEach(d => {
-    const height = Math.round((d.val / max) * 130);
-    const wrap = document.createElement('div');
-    wrap.className = 'chart-bar-wrap';
-    wrap.innerHTML = `
-      <div class="chart-bar${d.active ? ' active' : ''}" style="height:${height}px" title="${d.val}"></div>
-      <div class="chart-label">${d.label}</div>
-    `;
-    chartEl.appendChild(wrap);
-  });
-}
-
-/* ── Efecto visual del buscador ── */
-const searchInput = document.querySelector('.topbar-search input');
-
-if (searchInput) {
-  searchInput.addEventListener('focus', function() {
-    this.closest('.topbar-search').style.borderColor = 'var(--primary)';
-  });
-
-  searchInput.addEventListener('blur', function() {
-    this.closest('.topbar-search').style.borderColor = '';
-  });
-}
-</script>
-
+<script src="js/panel_admin.js"></script>
 </body>
 </html>

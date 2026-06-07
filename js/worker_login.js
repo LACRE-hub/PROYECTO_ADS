@@ -23,12 +23,12 @@ if (form) {
         e.preventDefault();
 
         const employeeId = document.getElementById('workerEmployeeId').value.trim();
-        const pw = document.getElementById('workerPassword').value;
-        let valid = true;
+        const pw         = document.getElementById('workerPassword').value;
+        let valid        = true;
 
         document.getElementById('employeeIdError').textContent = '';
-        document.getElementById('pwError').textContent = '';
-        document.getElementById('captchaError').textContent = '';
+        document.getElementById('pwError').textContent         = '';
+        document.getElementById('captchaError').textContent    = '';
         alertBox.style.display = 'none';
 
         if (!employeeId) {
@@ -57,16 +57,31 @@ if (form) {
 
         btnText.style.display   = 'none';
         btnLoader.style.display = 'inline-flex';
-        loginBtn.disabled = true;
+        loginBtn.disabled       = true;
 
-        await new Promise(r => setTimeout(r, 1800));
+        try {
+            const res  = await fetch('php/login.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ tipo: 'worker', identificador: employeeId, password: pw }),
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                window.location.href = data.redirect;
+                return;
+            }
+
+            alertMsg.textContent   = data.message || 'Invalid credentials. Verify your employee number and password.';
+            alertBox.style.display = 'flex';
+        } catch (_) {
+            alertMsg.textContent   = 'Connection error. Please try again.';
+            alertBox.style.display = 'flex';
+        }
 
         btnText.style.display   = 'inline-flex';
         btnLoader.style.display = 'none';
-        loginBtn.disabled = false;
-        grecaptcha.reset();
-
-        alertMsg.textContent = 'Invalid credentials. Verify your employee number and password.';
-        alertBox.style.display = 'flex';
+        loginBtn.disabled       = false;
+        try { grecaptcha.reset(); } catch (_) {}
     });
 }

@@ -24,13 +24,11 @@ form.addEventListener('submit', async (e) => {
     const pw         = document.getElementById('adminPassword').value.trim();
     let valid        = true;
 
-    /* Limpiar errores previos */
     document.getElementById('employeeIdError').textContent = '';
     document.getElementById('pwError').textContent         = '';
     document.getElementById('captchaError').textContent    = '';
     alertBox.style.display = 'none';
 
-    /* Validate employee number */
     if (!employeeId) {
         document.getElementById('employeeIdError').textContent = 'Please enter your employee number.';
         valid = false;
@@ -39,7 +37,6 @@ form.addEventListener('submit', async (e) => {
         valid = false;
     }
 
-    /* Validate password */
     if (!pw) {
         document.getElementById('pwError').textContent = 'Please enter your password.';
         valid = false;
@@ -48,45 +45,42 @@ form.addEventListener('submit', async (e) => {
         valid = false;
     }
 
-    /* Validate captcha */
     let captchaToken = '';
-    try {
-        captchaToken = grecaptcha.getResponse();
-    } catch (err) {
-        captchaToken = '';
-    }
+    try { captchaToken = grecaptcha.getResponse(); } catch (_) {}
 
-    if (!captchaToken || captchaToken.length === 0) {
+    if (!captchaToken) {
         document.getElementById('captchaError').textContent = 'Please complete the captcha.';
         valid = false;
     }
 
     if (!valid) return;
 
-    /* Loading state */
     btnText.style.display   = 'none';
     btnLoader.style.display = 'inline-flex';
     loginBtn.disabled       = true;
 
-    /* Simulated auth delay */
-    await new Promise(r => setTimeout(r, 1500));
+    try {
+        const res  = await fetch('php/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ tipo: 'admin', identificador: employeeId, password: pw }),
+        });
+        const data = await res.json();
 
-    /* Credential check */
-    const ADMIN_EMPLOYEE_ID = '2024630141';
-    const ADMIN_PASSWORD    = 'MediCore_1917';
+        if (data.success) {
+            window.location.href = data.redirect;
+            return;
+        }
 
-    if (employeeId === ADMIN_EMPLOYEE_ID && pw === ADMIN_PASSWORD) {
-        window.location.href = 'panel_Administrador.html';
-        return;
+        alertMsg.textContent   = data.message || 'Invalid credentials. Verify your employee number and password.';
+        alertBox.style.display = 'flex';
+    } catch (_) {
+        alertMsg.textContent   = 'Connection error. Please try again.';
+        alertBox.style.display = 'flex';
     }
 
-    /* Invalid credentials */
     btnText.style.display   = 'inline-flex';
     btnLoader.style.display = 'none';
     loginBtn.disabled       = false;
-
-    try { grecaptcha.reset(); } catch(err) {}
-
-    alertMsg.textContent   = 'Invalid credentials. Verify your employee number and password.';
-    alertBox.style.display = 'flex';
+    try { grecaptcha.reset(); } catch (_) {}
 });

@@ -1,0 +1,241 @@
+/* MediCore HMS – Panel Patient */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary:    #2563eb;
+  --primary-lt: #eff6ff;
+  --success:    #10b981;
+  --warning:    #f59e0b;
+  --danger:     #ef4444;
+  --muted:      #6b7280;
+  --border:     #e5e7eb;
+  --bg:         #f3f4f6;
+  --card:       #ffffff;
+  --text:       #111827;
+  --text-sm:    #6b7280;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SESSION WARNING ── */
+.session-warning {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  background: #f59e0b;
+  color: #fff;
+  text-align: center;
+  padding: .6rem 1rem;
+  font-size: .9rem;
+  font-weight: 500;
+  z-index: 9999;
+}
+
+/* ── HEADER ── */
+.patient-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 0 1.5rem;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.brand-icon { font-size: 1.4rem; }
+.header-patient {
+  margin-left: auto;
+  font-size: .95rem;
+  opacity: .9;
+}
+.btn-logout {
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.4);
+  padding: .35rem .9rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: .85rem;
+  transition: background .2s;
+}
+.btn-logout:hover { background: rgba(255,255,255,.25); color: #fff; }
+
+/* ── MAIN ── */
+.patient-main {
+  flex: 1;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* ── PATIENT INFO CARD ── */
+.patient-info-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+  border-left: 4px solid var(--primary);
+}
+.info-loading { text-align: center; padding: 1rem; color: var(--muted); }
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem 2rem;
+}
+.info-group { display: flex; flex-direction: column; gap: .15rem; }
+.info-label { font-size: .75rem; font-weight: 600; text-transform: uppercase; color: var(--muted); letter-spacing: .05em; }
+.info-value { font-size: .95rem; font-weight: 500; color: var(--text); }
+.info-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.info-avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--primary-lt);
+  color: var(--primary);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.info-name { font-size: 1.25rem; font-weight: 700; }
+.info-expediente { font-size: .85rem; color: var(--muted); }
+
+/* ── SECTION ── */
+.patient-section {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+.section-title-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.section-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+}
+.badge-count {
+  background: var(--primary);
+  color: #fff;
+  padding: .15rem .55rem;
+  border-radius: 20px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+
+/* ── CITA CARDS ── */
+.cita-loading { text-align: center; padding: 1.5rem; color: var(--muted); }
+.cita-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.25rem;
+  margin-bottom: .75rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: .5rem 1.25rem;
+  align-items: start;
+  transition: border-color .2s;
+}
+.cita-card:hover { border-color: var(--primary); }
+.cita-card.proxima { border-left: 3px solid var(--primary); }
+.cita-card.historial { border-left: 3px solid var(--muted); }
+
+.cita-fecha-box {
+  background: var(--primary-lt);
+  color: var(--primary);
+  border-radius: 8px;
+  padding: .5rem .75rem;
+  text-align: center;
+  min-width: 62px;
+}
+.cita-fecha-day { font-size: 1.4rem; font-weight: 700; line-height: 1; }
+.cita-fecha-month { font-size: .7rem; font-weight: 600; text-transform: uppercase; }
+.cita-fecha-time { font-size: .72rem; color: var(--muted); margin-top: .2rem; }
+
+.cita-body { display: flex; flex-direction: column; gap: .25rem; }
+.cita-medico { font-weight: 600; font-size: .95rem; }
+.cita-tipo { font-size: .8rem; color: var(--muted); }
+.cita-motivo { font-size: .85rem; color: var(--text); margin-top: .25rem; }
+.cita-consultorio { font-size: .78rem; color: var(--muted); }
+
+.cita-badge { align-self: center; }
+
+/* STATUS BADGES */
+.badge-status {
+  display: inline-block;
+  padding: .25rem .65rem;
+  border-radius: 20px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+.badge-programada { background:#eff6ff; color:#2563eb; }
+.badge-completada  { background:#ecfdf5; color:#059669; }
+.badge-cancelada   { background:#fef2f2; color:#dc2626; }
+.badge-en-proceso  { background:#fffbeb; color:#d97706; }
+.badge-default     { background:#f3f4f6; color:#6b7280; }
+
+/* HISTORIAL DIAGNOSTIC */
+.cita-diagnostico {
+  font-size: .82rem;
+  color: var(--text-sm);
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: .35rem .6rem;
+  margin-top: .3rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--muted);
+}
+.empty-state i { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
+
+/* ── FOOTER ── */
+.patient-footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: .8rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  background: var(--card);
+}
+
+@media (max-width: 600px) {
+  .patient-main { padding: 0 .75rem; margin: 1rem auto; }
+  .patient-info-card { padding: 1rem; }
+  .cita-card { grid-template-columns: 1fr; }
+  .cita-fecha-box { display: flex; gap: .5rem; align-items: center; width: max-content; }
+}
