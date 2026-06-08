@@ -194,6 +194,14 @@
               <a href="#" class="forgot-link">Forgot password?</a>
             </div>
 
+            <div class="field-group captcha-wrap">
+              <div
+                class="g-recaptcha"
+                data-sitekey="6Le59_QsAAAAAIC2rUZhr5G0gqItBk3h7-KT-JvA"
+              ></div>
+              <span class="field-error" id="captchaError"></span>
+            </div>
+
             <button type="submit" class="btn-login" id="loginBtn">
               <span class="btn-login-text">
                 <i class="fas fa-sign-in-alt me-2"></i>Sign In to Admin Panel
@@ -202,16 +210,6 @@
                 <span class="spinner"></span> Authenticating…
               </span>
             </button>
-
-            <br />  
-            <br />
-            <div class="field-group captcha-wrap">
-              <div
-                class="g-recaptcha"
-                data-sitekey="6Le59_QsAAAAAIC2rUZhr5G0gqItBk3h7-KT-JvA"
-              ></div>
-              <span class="field-error" id="captchaError"></span>
-            </div>
           </form>
 
           <!-- Divider -->
