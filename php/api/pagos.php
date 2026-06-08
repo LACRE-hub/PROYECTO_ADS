@@ -49,20 +49,39 @@ try {
     $idMod  = (int)($body['id_modificacion'] ?? 0);
 
     if ($action === 'aprobar') {
-        // RF-10: Administrador autoriza modificación
-        if (!$idMod) { echo json_encode(['error' => 'ID requerido']); exit; }
+        // RF-10: Administrador autoriza modificación de pago
+        if (!$idMod) {
+            echo json_encode([
+                'error'  => 'Existen campos obligatorios sin completar. Revise el formulario antes de continuar.',
+                'cod'    => 'ERR-17',
+            ]);
+            exit;
+        }
 
         $pdo->beginTransaction();
         try {
-            $pdo->prepare(
+            $stmt = $pdo->prepare(
                 "UPDATE MODIFICACION_PAGO
                  SET estatus = 'Autorizada', fecha_autorizacion = NOW(), id_administrador = ?
                  WHERE id_modificacion = ? AND estatus = 'Pendiente'"
-            )->execute([$usuario['id'], $idMod]);
+            );
+            $stmt->execute([$usuario['id'], $idMod]);
 
-            // Obtener id_pago para actualizar estado
-            $idPago = $pdo->prepare("SELECT id_pago FROM MODIFICACION_PAGO WHERE id_modificacion = ?")->execute([$idMod]);
-            $row = $pdo->query("SELECT id_pago FROM MODIFICACION_PAGO WHERE id_modificacion = $idMod")->fetch();
+            if ($stmt->rowCount() === 0) {
+                $pdo->rollBack();
+                // ERR-08: Solicitud no encontrada o ya procesada
+                echo json_encode([
+                    'error' => 'La solicitud de modificación no existe o ya fue procesada.',
+                    'cod'   => 'ERR-08',
+                ]);
+                exit;
+            }
+
+            // Obtener id_pago para actualizar estado (usando prepared statement — RT-11)
+            $stmtPago = $pdo->prepare("SELECT id_pago FROM MODIFICACION_PAGO WHERE id_modificacion = ?");
+            $stmtPago->execute([$idMod]);
+            $row = $stmtPago->fetch();
+
             if ($row) {
                 $pdo->prepare("UPDATE PAGO SET estatus_pago = 'En revisión' WHERE id_pago = ?")
                     ->execute([$row['id_pago']]);
@@ -72,43 +91,89 @@ try {
                 "Modificación ID $idMod autorizada");
 
             $pdo->commit();
-            echo json_encode(['success' => true]);
+            // MSG-20: Modificación de pago autorizada
+            echo json_encode([
+                'success' => true,
+                'mensaje' => 'Modificación de pago autorizada correctamente.',
+                'cod'     => 'MSG-20',
+            ]);
         } catch (Exception $e) {
             $pdo->rollBack();
             throw $e;
         }
 
     } elseif ($action === 'rechazar') {
+        if (!$idMod) {
+            echo json_encode([
+                'error' => 'Existen campos obligatorios sin completar. Revise el formulario antes de continuar.',
+                'cod'   => 'ERR-17',
+            ]);
+            exit;
+        }
+
         $motivo = trim($body['motivo'] ?? '');
-        $pdo->prepare(
+        if (!$motivo) {
+            // ERR-09: Motivo de rechazo requerido
+            echo json_encode([
+                'error' => 'Debe indicar el motivo del rechazo de la modificación.',
+                'cod'   => 'ERR-09',
+            ]);
+            exit;
+        }
+
+        $stmt = $pdo->prepare(
             "UPDATE MODIFICACION_PAGO
              SET estatus = 'Rechazada', fecha_autorizacion = NOW(), id_administrador = ?
              WHERE id_modificacion = ? AND estatus = 'Pendiente'"
-        )->execute([$usuario['id'], $idMod]);
+        );
+        $stmt->execute([$usuario['id'], $idMod]);
+
+        if ($stmt->rowCount() === 0) {
+            echo json_encode([
+                'error' => 'La solicitud de modificación no existe o ya fue procesada.',
+                'cod'   => 'ERR-08',
+            ]);
+            exit;
+        }
 
         registrarLog($pdo, $usuario['id'], 'Pagos', 'Rechazo de modificación',
             "Modificación ID $idMod rechazada. Motivo: $motivo");
 
-        echo json_encode(['success' => true]);
+        // MSG-21: Modificación de pago rechazada
+        echo json_encode([
+            'success' => true,
+            'mensaje' => 'Modificación de pago rechazada.',
+            'cod'     => 'MSG-21',
+        ]);
 
     } elseif ($action === 'cancelacion_emergencia') {
         // RF-11: cancelación de emergencia requiere clave del administrador
-        $idPago  = (int)($body['id_pago']  ?? 0);
-        $clave   = $body['clave_admin']     ?? '';
-        $motivo  = trim($body['motivo']     ?? '');
+        $idPago = (int)($body['id_pago']  ?? 0);
+        $clave  = $body['clave_admin']    ?? '';
+        $motivo = trim($body['motivo']    ?? '');
 
         if (!$idPago || !$clave || !$motivo) {
-            echo json_encode(['error' => 'ID de pago, clave y motivo son requeridos']); exit;
+            echo json_encode([
+                'error' => 'Existen campos obligatorios sin completar. Revise el formulario antes de continuar.',
+                'cod'   => 'ERR-17',
+            ]);
+            exit;
         }
 
-        // Verificar clave del administrador
-        $hash = $pdo->prepare("SELECT contrasena_hash FROM EMPLEADO WHERE id_empleado = ?")->execute([$usuario['id']]);
-        $row  = $pdo->query("SELECT contrasena_hash FROM EMPLEADO WHERE id_empleado = " . $usuario['id'])->fetch();
+        // Verificar clave del administrador (RT-11: prepared statement — no SQL injection)
+        $stmtHash = $pdo->prepare("SELECT contrasena_hash FROM EMPLEADO WHERE id_empleado = ?");
+        $stmtHash->execute([$usuario['id']]);
+        $row = $stmtHash->fetch();
 
         if (!$row || !password_verify($clave, $row['contrasena_hash'])) {
             registrarLog($pdo, $usuario['id'], 'Pagos', 'Intento fallido cancelación emergencia',
                 "Clave incorrecta para pago ID $idPago");
-            echo json_encode(['error' => 'Clave de administrador incorrecta']); exit;
+            // ERR-07: Clave de administrador incorrecta
+            echo json_encode([
+                'error' => 'La clave de administrador es incorrecta. Verifique sus credenciales e intente nuevamente.',
+                'cod'   => 'ERR-07',
+            ]);
+            exit;
         }
 
         $pdo->beginTransaction();
@@ -128,16 +193,29 @@ try {
                 "Pago ID $idPago cancelado. Motivo: $motivo");
 
             $pdo->commit();
-            echo json_encode(['success' => true]);
+            // MSG-20: Operación de pago procesada
+            echo json_encode([
+                'success' => true,
+                'mensaje' => 'Cancelación de emergencia aplicada correctamente.',
+                'cod'     => 'MSG-20',
+            ]);
         } catch (Exception $e) {
             $pdo->rollBack();
             throw $e;
         }
+
     } else {
-        echo json_encode(['error' => 'Acción no reconocida']);
+        echo json_encode([
+            'error' => 'Acción no reconocida.',
+            'cod'   => 'ERR-22',
+        ]);
     }
 
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Error de base de datos']);
+    error_log('pagos.php error: ' . $e->getMessage());
+    echo json_encode([
+        'error' => 'Ha ocurrido un error inesperado. La incidencia ha sido registrada. Contacte al administrador.',
+        'cod'   => 'ERR-22',
+    ]);
 }

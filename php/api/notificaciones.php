@@ -55,10 +55,10 @@ try {
         ];
     }
 
-    // Medicamentos próximos a caducar (< 90 días)
+    // Medicamentos próximos a caducar (RN-17: alerta a ≤ 30 días)
     $caduca = (int)$pdo->query(
         "SELECT COUNT(*) FROM LOTE_MEDICAMENTO
-         WHERE fecha_caducidad <= DATE_ADD(CURDATE(), INTERVAL 90 DAY)
+         WHERE fecha_caducidad <= DATE_ADD(CURDATE(), INTERVAL 30 DAY)
            AND existencia_actual > 0"
     )->fetchColumn();
     if ($caduca > 0) {
@@ -67,7 +67,7 @@ try {
             'icono'   => 'fa-exclamation-triangle',
             'color'   => 'danger',
             'titulo'  => 'Medicamentos próximos a caducar',
-            'mensaje' => "$caduca lote(s) caducan en menos de 90 días.",
+            'mensaje' => "$caduca lote(s) caducan en menos de 30 días.",
             'seccion' => 'reportes',
         ];
     }
