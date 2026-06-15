@@ -157,6 +157,12 @@ RECAPTCHA_SECRET=tu_clave_secreta_aqui
 
 > ⚠️ El archivo `.env` está en `.gitignore` y **nunca debe subirse al repositorio**.
 
+> 💡 **Cada integrante del equipo debe crear su propio `.env`.** Como no se sube a Git,
+> al clonar el repo no lo tendrás. Si falta el `.env` (o el `RECAPTCHA_SECRET`), el captcha
+> fallará con **ERR-02 "El código CAPTCHA es incorrecto"** aunque lo marques bien. Pide la
+> clave secreta a tu equipo por un canal privado. Si entras por IP de red en vez de
+> `localhost`, agrega ese dominio en la consola de reCAPTCHA.
+
 ---
 
 ## Equipo de desarrollo

@@ -63,7 +63,7 @@ if (form) {
             const res  = await fetch('php/login.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ tipo: 'worker', identificador: employeeId, password: pw }),
+                body: JSON.stringify({ tipo: 'worker', identificador: employeeId, password: pw, captcha: captchaToken }),
             });
             const data = await res.json();
 
