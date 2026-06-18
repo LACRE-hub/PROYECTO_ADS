@@ -1,18 +1,7 @@
-/* ══════════════════════════════════════
-   MediCore HMS — Admin Login Stylesheet
-   admin-login.css (no sobrescribe style.css)
-   ══════════════════════════════════════ */
-
-/* Reuses design variables from the main system */
-:root {
-     --primary:       #f97316;   /* naranja */
-    --primary-dark:  #ea580c;   /* naranja oscuro */
-    --primary-light: #ffedd5;   /* naranja claro */
-    --accent:        #fb923c;   /* naranja medio */
-    --success:       #10b981;
+﻿:root {
+     --primary:       #f97316;   --primary-dark:  #ea580c;   --primary-light: #ffedd5;   --accent:        #fb923c;   --success:       #10b981;
     --danger:        #ef4444;
     --purple:        #8b5cf6;
-
     --dark:          #0f172a;
     --dark-2:        #1e293b;
     --mid:           #475569;
@@ -20,22 +9,16 @@
     --white:         #ffffff;
     --border:        #e2e8f0;
     --text:          #334155;
-
     --radius-sm:     8px;
     --radius:        16px;
     --radius-lg:     24px;
-
     --shadow-sm:     0 2px 8px rgba(0,0,0,.06);
     --shadow:        0 8px 24px rgba(0,0,0,.10);
     --shadow-lg:     0 20px 48px rgba(0,0,0,.14);
-
     --transition:    all .3s ease;
 }
-
-/* ── Specific reset for login ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-
 body.login-body {
     font-family: 'Inter', sans-serif;
     color: var(--text);
@@ -46,8 +29,6 @@ body.login-body {
      max-width: 1620px;
     margin: 0 auto;
 }
-
-/* ── Back link ── */
 .back-link {
     position: fixed;
     top: 1.25rem;
@@ -67,20 +48,15 @@ body.login-body {
     border-radius: 50px;
     transition: var(--transition);
 }
-
 .back-link:hover {
     color: var(--dark);
     background: #f8fafc;
     border-color: var(--border);
 }
-
-/* ── Layout wrapper ── */
 .login-wrapper {
     display: flex;
     min-height: 100vh;
 }
-
-/* ══ LEFT PANEL ══ */
 .login-panel-left {
     flex: 0 0 46%;
     background: linear-gradient(145deg, #0f172a 0%, #1e293b 55%, #0c4a6e 100%);
@@ -91,38 +67,29 @@ body.login-body {
     position: relative;
     overflow: hidden;
 }
-
-/* Background shapes — same style as hero */
 .left-bg-shapes { position: absolute; inset: 0; pointer-events: none; }
-
 .l-shape {
     position: absolute;
     border-radius: 50%;
     filter: blur(70px);
     opacity: .15;
 }
-
 .l-shape-1 {
     width: 420px; height: 420px;
     background: var(--primary);
     top: -120px; right: -100px;
 }
-
 .l-shape-2 {
     width: 260px; height: 260px;
     background: var(--accent);
     bottom: 80px; left: -60px;
 }
-
 .l-shape-3 {
     width: 180px; height: 180px;
     background: var(--purple);
     top: 55%; left: 35%;
 }
-
-/* Left content */
 .left-content { position: relative; z-index: 2; }
-
 .left-brand {
     display: flex;
     align-items: center;
@@ -132,10 +99,8 @@ body.login-body {
     color: white;
     margin-bottom: 2.5rem;
 }
-
 .left-brand strong { color: var(--primary); }
 .left-brand em { font-style: normal; color: #64748b; font-weight: 400; font-size: .9rem; }
-
 .brand-icon-login {
     width: 38px;
     height: 38px;
@@ -149,14 +114,12 @@ body.login-body {
     flex-shrink: 0;
     box-shadow: 0 4px 14px rgba(14,165,233,.45);
 }
-
 .brand-icon-sm-login {
     width: 30px;
     height: 30px;
     font-size: .75rem;
     border-radius: 6px;
 }
-
 .left-badge {
     display: inline-flex;
     align-items: center;
@@ -170,7 +133,6 @@ body.login-body {
     margin-bottom: 1.5rem;
     letter-spacing: .03em;
 }
-
 .left-heading {
     font-size: clamp(1.75rem, 2.8vw, 2.6rem);
     font-weight: 800;
@@ -178,14 +140,12 @@ body.login-body {
     line-height: 1.2;
     margin-bottom: 1.1rem;
 }
-
 .text-gradient-light {
     background: linear-gradient(135deg, var(--primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
-
 .left-sub {
     color: #94a3b8;
     font-size: .95rem;
@@ -193,16 +153,12 @@ body.login-body {
     max-width: 370px;
     margin-bottom: 2.5rem;
 }
-
-/* Feature items */
 .left-features { display: flex; flex-direction: column; gap: 1.2rem; }
-
 .left-feature-item {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
-
 .lf-icon {
     width: 42px;
     height: 42px;
@@ -216,7 +172,6 @@ body.login-body {
     font-size: .95rem;
     flex-shrink: 0;
 }
-
 .left-feature-item strong {
     display: block;
     color: white;
@@ -224,13 +179,10 @@ body.login-body {
     font-weight: 600;
     margin-bottom: .1rem;
 }
-
 .left-feature-item span {
     font-size: .78rem;
     color: #64748b;
 }
-
-/* Bottom stats strip */
 .left-stats {
     position: relative;
     z-index: 2;
@@ -240,7 +192,6 @@ body.login-body {
     padding-top: 2rem;
     border-top: 1px solid rgba(255,255,255,.08);
 }
-
 .left-stat strong {
     display: block;
     font-size: 1.1rem;
@@ -249,20 +200,16 @@ body.login-body {
     line-height: 1;
     margin-bottom: .2rem;
 }
-
 .left-stat span {
     font-size: .72rem;
     color: #64748b;
     font-weight: 500;
 }
-
 .left-stat-divider {
     width: 1px;
     height: 32px;
     background: rgba(255,255,255,.12);
 }
-
-/* ══ RIGHT PANEL ══ */
 .login-panel-right {
     flex: 1;
     display: flex;
@@ -271,14 +218,10 @@ body.login-body {
     padding: 3rem 2rem;
     background: var(--light);
 }
-
-/* Form box */
 .login-form-box {
     width: 100%;
     max-width: 460px;
 }
-
-/* Mobile brand */
 .mobile-brand {
     align-items: center;
     gap: .55rem;
@@ -287,13 +230,9 @@ body.login-body {
     color: var(--dark);
     margin-bottom: 2rem;
 }
-
 .mobile-brand strong { color: var(--primary); }
 .mobile-brand em { font-style: normal; color: var(--mid); font-weight: 400; font-size: .85rem; }
-
-/* Form header */
 .form-header { margin-bottom: 2rem; }
-
 .form-icon-wrap {
     width: 56px;
     height: 56px;
@@ -307,21 +246,17 @@ body.login-body {
     margin-bottom: 1.25rem;
     box-shadow: 0 8px 24px rgba(14,165,233,.35);
 }
-
 .form-title {
     font-size: 1.75rem;
     font-weight: 800;
     color: var(--dark);
     margin-bottom: .4rem;
 }
-
 .form-subtitle {
     color: var(--mid);
     font-size: .9rem;
     margin: 0;
 }
-
-/* Alert */
 .login-alert {
     display: flex;
     align-items: center;
@@ -335,10 +270,7 @@ body.login-body {
     margin-bottom: 1.5rem;
     gap: .5rem;
 }
-
-/* Field group */
 .field-group { margin-bottom: 1.25rem; }
-
 .field-label {
     display: block;
     font-size: .83rem;
@@ -346,9 +278,7 @@ body.login-body {
     color: var(--dark);
     margin-bottom: .45rem;
 }
-
 .field-label i { color: var(--primary); }
-
 .field-input {
     width: 100%;
     background: var(--white);
@@ -361,14 +291,11 @@ body.login-body {
     transition: var(--transition);
     outline: none;
 }
-
 .field-input::placeholder { color: #94a3b8; }
-
 .field-input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(14,165,233,.14);
 }
-
 .field-error {
     display: block;
     font-size: .78rem;
@@ -377,16 +304,12 @@ body.login-body {
     margin-top: .35rem;
     min-height: 1rem;
 }
-
-/* Password input */
 .input-password-wrap {
     position: relative;
 }
-
 .input-password-wrap .field-input {
     padding-right: 3rem;
 }
-
 .toggle-pw {
     position: absolute;
     right: .85rem;
@@ -400,10 +323,7 @@ body.login-body {
     padding: 0;
     transition: color .2s;
 }
-
 .toggle-pw:hover { color: var(--primary); }
-
-/* Form options row */
 .form-options {
     display: flex;
     justify-content: space-between;
@@ -411,7 +331,6 @@ body.login-body {
     margin-bottom: 1.75rem;
     font-size: .83rem;
 }
-
 .remember-label {
     display: flex;
     align-items: center;
@@ -421,24 +340,19 @@ body.login-body {
     font-weight: 500;
     user-select: none;
 }
-
 .remember-label input[type="checkbox"] {
     width: 16px;
     height: 16px;
     accent-color: var(--primary);
     cursor: pointer;
 }
-
 .forgot-link {
     color: var(--primary);
     text-decoration: none;
     font-weight: 600;
     transition: color .2s;
 }
-
 .forgot-link:hover { color: var(--primary-dark); text-decoration: underline; }
-
-/* Login button */
 .btn-login {
     width: 100%;
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -457,26 +371,21 @@ body.login-body {
     justify-content: center;
     gap: .5rem;
 }
-
 .btn-login:hover:not(:disabled) {
     transform: translateY(-2px);
     box-shadow: 0 10px 28px rgba(14,165,233,.5);
     background: linear-gradient(135deg, var(--primary-dark), var(--primary));
 }
-
 .btn-login:disabled {
     opacity: .75;
     cursor: not-allowed;
 }
-
 .btn-login-text,
 .btn-login-loading {
     display: inline-flex;
     align-items: center;
     gap: .45rem;
 }
-
-/* Spinner */
 .spinner {
     display: inline-block;
     width: 16px;
@@ -486,10 +395,7 @@ body.login-body {
     border-radius: 50%;
     animation: spin .7s linear infinite;
 }
-
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* Divider */
 .form-divider {
     display: flex;
     align-items: center;
@@ -499,7 +405,6 @@ body.login-body {
     color: #94a3b8;
     font-weight: 500;
 }
-
 .form-divider::before,
 .form-divider::after {
     content: '';
@@ -507,15 +412,12 @@ body.login-body {
     height: 1px;
     background: var(--border);
 }
-
-/* Other portals */
 .other-portals {
     display: flex;
     flex-wrap: wrap;
     gap: .75rem;
     margin-bottom: 1.75rem;
 }
-
 .portal-link {
     flex: 1 1 calc(50% - .75rem);
     min-width: calc(50% - .75rem);
@@ -532,87 +434,69 @@ body.login-body {
     background: var(--white);
     transition: var(--transition);
 }
-
 .portal-link-patient { color: var(--success); }
 .portal-link-patient:hover {
     border-color: var(--success);
     background: #d1fae5;
     color: #065f46;
 }
-
 .portal-link-doctor { color: #2563eb; }
 .portal-link-doctor:hover {
     border-color: #2563eb;
     background: #dbeafe;
     color: #2563eb;
 }
-
 .portal-link-worker { color: #a16a44; }
 .portal-link-worker:hover {
     border-color: #a16a44;
     background: #f7efe7;
     color: #55331d;
 }
-
 .portal-link-nurse { color: #7c3aed; }
 .portal-link-nurse:hover {
     border-color: #7c3aed;
     background: #ede9fe;
     color: #4c1d95;
 }
-
 .portal-link-secretary { color: #dc2626; }
 .portal-link-secretary:hover {
     border-color: #dc2626;
     background: #fee2e2;
     color: #7f1d1d;
 }
-
-/* Footer note */
 .form-footer-note {
     text-align: center;
     font-size: .75rem;
     color: #94a3b8;
     margin: 0;
 }
-
 .form-footer-note i { color: var(--success); }
-
-/* ══ RESPONSIVE ══ */
 @media (max-width: 991px) {
     .login-panel-right {
         padding: 5rem 1.5rem 2.5rem;
     }
-
     .back-link {
         color: var(--dark);
         background: var(--white);
         border-color: var(--border);
     }
-
     .back-link:hover {
         color: var(--dark);
         background: #f8fafc;
         border-color: var(--border);
     }
 }
-
 @media (max-width: 576px) {
     .login-form-box { max-width: 100%; }
     .other-portals { flex-direction: column; }
     .form-options { flex-direction: column; align-items: flex-start; gap: .75rem; }
 }
-
-
-
 .captcha-wrap {
     margin-bottom: 1.5rem;
 }
-
 .captcha-wrap .g-recaptcha {
     transform-origin: left top;
 }
-
 @media (max-width: 400px) {
     .captcha-wrap .g-recaptcha {
         transform: scale(0.88);

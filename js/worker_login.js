@@ -1,8 +1,6 @@
-/* Toggle password */
-const togglePw   = document.getElementById('togglePw');
+﻿const togglePw   = document.getElementById('togglePw');
 const pwInput    = document.getElementById('workerPassword');
 const toggleIcon = document.getElementById('togglePwIcon');
-
 if (togglePw) {
     togglePw.addEventListener('click', () => {
         const isHidden = pwInput.type === 'password';
@@ -10,7 +8,6 @@ if (togglePw) {
         toggleIcon.className = isHidden ? 'fas fa-eye-slash' : 'fas fa-eye';
     });
 }
-
 const form = document.getElementById('workerLoginForm');
 if (form) {
     const loginBtn  = document.getElementById('loginBtn');
@@ -18,19 +15,15 @@ if (form) {
     const btnLoader = loginBtn.querySelector('.btn-login-loading');
     const alertBox  = document.getElementById('loginAlert');
     const alertMsg  = document.getElementById('alertMessage');
-
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const employeeId = document.getElementById('workerEmployeeId').value.trim();
         const pw         = document.getElementById('workerPassword').value;
         let valid        = true;
-
         document.getElementById('employeeIdError').textContent = '';
         document.getElementById('pwError').textContent         = '';
         document.getElementById('captchaError').textContent    = '';
         alertBox.style.display = 'none';
-
         if (!employeeId) {
             document.getElementById('employeeIdError').textContent = 'Please enter your employee number.';
             valid = false;
@@ -38,7 +31,6 @@ if (form) {
             document.getElementById('employeeIdError').textContent = 'Employee number must be exactly 10 digits.';
             valid = false;
         }
-
         if (!pw) {
             document.getElementById('pwError').textContent = 'Please enter your password.';
             valid = false;
@@ -46,19 +38,15 @@ if (form) {
             document.getElementById('pwError').textContent = 'Minimum 6 characters.';
             valid = false;
         }
-
         const captchaToken = grecaptcha.getResponse();
         if (!captchaToken) {
             document.getElementById('captchaError').textContent = 'Please complete the captcha.';
             valid = false;
         }
-
         if (!valid) return;
-
         btnText.style.display   = 'none';
         btnLoader.style.display = 'inline-flex';
         loginBtn.disabled       = true;
-
         try {
             const res  = await fetch('php/login.php', {
                 method: 'POST',
@@ -66,19 +54,16 @@ if (form) {
                 body: JSON.stringify({ tipo: 'worker', identificador: employeeId, password: pw, captcha: captchaToken }),
             });
             const data = await res.json();
-
             if (data.success) {
                 window.location.href = data.redirect;
                 return;
             }
-
             alertMsg.textContent   = data.message || 'Invalid credentials. Verify your employee number and password.';
             alertBox.style.display = 'flex';
         } catch (_) {
             alertMsg.textContent   = 'Connection error. Please try again.';
             alertBox.style.display = 'flex';
         }
-
         btnText.style.display   = 'inline-flex';
         btnLoader.style.display = 'none';
         loginBtn.disabled       = false;

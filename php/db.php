@@ -1,6 +1,5 @@
-<?php
+﻿<?php
 require_once __DIR__ . '/config.php';
-
 function getDB(): PDO {
     static $pdo = null;
     if ($pdo === null) {
