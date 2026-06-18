@@ -1,20 +1,24 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MediCore HMS â€“ Mi Portal</title>
+  <title>MediCore HMS – Mi Portal</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link href="css/panel_patient.css" rel="stylesheet"/>
 </head>
 <body>
+
+<!-- SESSION WARNING -->
 <div id="sessionWarning" class="session-warning d-none">
   <i class="fas fa-clock"></i>
-  Tu sesiÃ³n expirarÃ¡ en <strong id="sessionCountdown">2:00</strong>.
-  <button onclick="pingSession()" class="btn btn-sm btn-light ms-3">Mantener sesiÃ³n</button>
+  Tu sesión expirará en <strong id="sessionCountdown">2:00</strong>.
+  <button onclick="pingSession()" class="btn btn-sm btn-light ms-3">Mantener sesión</button>
 </div>
+
+<!-- HEADER -->
 <header class="patient-header">
   <div class="header-inner">
     <div class="header-brand">
@@ -23,43 +27,54 @@
     </div>
     <div class="header-patient" id="headerPatient">
       <i class="fas fa-user-circle me-2"></i>
-      <span id="patientFullName">Cargandoâ€¦</span>
+      <span id="patientFullName">Cargando…</span>
     </div>
     <a href="php/logout.php" class="btn-logout">
-      <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesiÃ³n
+      <i class="fas fa-sign-out-alt me-1"></i>Cerrar sesión
     </a>
   </div>
 </header>
+
+<!-- MAIN -->
 <main class="patient-main">
+
+  <!-- PATIENT INFO CARD -->
   <div class="patient-info-card" id="patientInfoCard">
     <div class="info-loading"><i class="fas fa-spinner fa-spin fa-2x"></i></div>
   </div>
+
+  <!-- PRÓXIMAS CITAS -->
   <section class="patient-section">
     <div class="section-title-bar">
       <h2 class="section-heading">
-        <i class="fas fa-calendar-check text-primary me-2"></i>Mis PrÃ³ximas Citas
+        <i class="fas fa-calendar-check text-primary me-2"></i>Mis Próximas Citas
       </h2>
       <span class="badge-count" id="badgeProximas">0</span>
     </div>
     <div id="proximasContainer">
-      <div class="cita-loading"><i class="fas fa-spinner fa-spin"></i> Cargando citasâ€¦</div>
+      <div class="cita-loading"><i class="fas fa-spinner fa-spin"></i> Cargando citas…</div>
     </div>
   </section>
+
+  <!-- HISTORIAL -->
   <section class="patient-section mt-4">
     <div class="section-title-bar">
       <h2 class="section-heading">
         <i class="fas fa-history text-secondary me-2"></i>Historial de Citas
       </h2>
-      <small class="text-muted">Ãšltimas 20 citas</small>
+      <small class="text-muted">Últimas 20 citas</small>
     </div>
     <div id="historialContainer">
-      <div class="cita-loading"><i class="fas fa-spinner fa-spin"></i> Cargando historialâ€¦</div>
+      <div class="cita-loading"><i class="fas fa-spinner fa-spin"></i> Cargando historial…</div>
     </div>
   </section>
+
 </main>
+
 <footer class="patient-footer">
   <p>MediCore HMS &copy; 2024 &mdash; Portal del Paciente. Solo lectura.</p>
 </footer>
+
 <script src="js/panel_patient.js"></script>
 </body>
 </html>

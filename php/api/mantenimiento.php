@@ -1,11 +1,13 @@
-﻿<?php
+<?php
 session_start();
 header('Content-Type: application/json');
 require_once dirname(__DIR__) . '/middleware/auth_check.php';
 require_once dirname(__DIR__) . '/db.php';
+
 $usuario = requireAdmin();
 $pdo     = getDB();
 $method  = $_SERVER['REQUEST_METHOD'];
+
 try {
     if ($method === 'GET') {
         $rows = $pdo->query(
@@ -20,12 +22,15 @@ try {
         echo json_encode(['mantenimientos' => $rows]);
         exit;
     }
+
     $body        = json_decode(file_get_contents('php://input'), true) ?? [];
     $action      = $body['action'] ?? 'crear';
     $fechaInicio = $body['fecha_hora_inicio'] ?? '';
     $duracion    = (int)($body['duracion_minutos'] ?? 0);
     $desc        = trim($body['descripcion'] ?? '');
+
     if ($action === 'crear') {
+        // RF-21: campos obligatorios
         if (!$fechaInicio || $duracion <= 0 || !$desc) {
             echo json_encode([
                 'error' => 'Existen campos obligatorios sin completar. Revise el formulario antes de continuar.',
@@ -33,13 +38,17 @@ try {
             ]);
             exit;
         }
+
+        // RNF-09: duración máxima 15 minutos
         if ($duracion > 15) {
+            // ERR-25: Duración excede el límite permitido
             echo json_encode([
-                'error' => 'La ventana de mantenimiento no puede exceder 15 minutos (RNF-09). Ajuste la duraciÃ³n e intente nuevamente.',
+                'error' => 'La ventana de mantenimiento no puede exceder 15 minutos (RNF-09). Ajuste la duración e intente nuevamente.',
                 'cod'   => 'ERR-25',
             ]);
             exit;
         }
+
         $pdo->beginTransaction();
         try {
             $stmt = $pdo->prepare(
@@ -48,7 +57,9 @@ try {
             );
             $stmt->execute([$usuario['id'], $fechaInicio, $duracion, $desc]);
             $idMant = (int)$pdo->lastInsertId();
-            $areas  = ['Urgencias', 'HospitalizaciÃ³n', 'MÃ©dicos', 'EnfermerÃ­a', 'Farmacia'];
+
+            // RF-22: generar alertas para áreas críticas
+            $areas  = ['Urgencias', 'Hospitalización', 'Médicos', 'Enfermería', 'Farmacia'];
             $alerta = $pdo->prepare(
                 "INSERT INTO ALERTA_MANTENIMIENTO (id_mantenimiento, area_notificada, fecha_envio, estatus_envio)
                  VALUES (?, ?, NOW(), 'Enviado')"
@@ -56,19 +67,23 @@ try {
             foreach ($areas as $area) {
                 $alerta->execute([$idMant, $area]);
             }
-            registrarLog($pdo, $usuario['id'], 'Sistema', 'ProgramaciÃ³n de mantenimiento',
+
+            registrarLog($pdo, $usuario['id'], 'Sistema', 'Programación de mantenimiento',
                 "Mantenimiento programado: $fechaInicio, $duracion min. $desc");
+
             $pdo->commit();
+            // MSG-36: Mantenimiento programado exitosamente
             echo json_encode([
                 'success'         => true,
                 'id_mantenimiento'=> $idMant,
-                'mensaje'         => 'Ventana de mantenimiento programada. Las Ã¡reas crÃ­ticas han sido notificadas.',
+                'mensaje'         => 'Ventana de mantenimiento programada. Las áreas críticas han sido notificadas.',
                 'cod'             => 'MSG-36',
             ]);
         } catch (Exception $e) {
             $pdo->rollBack();
             throw $e;
         }
+
     } elseif ($action === 'cancelar') {
         $id = (int)($body['id_mantenimiento'] ?? 0);
         if (!$id) {
@@ -78,30 +93,37 @@ try {
             ]);
             exit;
         }
+
         $stmt = $pdo->prepare(
             "UPDATE MANTENIMIENTO SET estatus = 'Cancelado' WHERE id_mantenimiento = ? AND estatus = 'Programado'"
         );
         $stmt->execute([$id]);
+
         if ($stmt->rowCount() === 0) {
             echo json_encode([
-                'error' => 'El mantenimiento no existe o ya no estÃ¡ en estado programado.',
+                'error' => 'El mantenimiento no existe o ya no está en estado programado.',
                 'cod'   => 'ERR-22',
             ]);
             exit;
         }
-        registrarLog($pdo, $usuario['id'], 'Sistema', 'CancelaciÃ³n de mantenimiento',
+
+        registrarLog($pdo, $usuario['id'], 'Sistema', 'Cancelación de mantenimiento',
             "Mantenimiento ID $id cancelado");
+
+        // MSG-37: Mantenimiento cancelado
         echo json_encode([
             'success' => true,
             'mensaje' => 'Ventana de mantenimiento cancelada correctamente.',
             'cod'     => 'MSG-37',
         ]);
+
     } else {
         echo json_encode([
-            'error' => 'AcciÃ³n no reconocida.',
+            'error' => 'Acción no reconocida.',
             'cod'   => 'ERR-22',
         ]);
     }
+
 } catch (PDOException $e) {
     http_response_code(500);
     error_log('mantenimiento.php error: ' . $e->getMessage());

@@ -1,4 +1,7 @@
-﻿:root {
+/* ================================================================
+   MediCore HMS — Panel Administrador
+   ================================================================ */
+:root {
   --sidebar-w:  260px;
   --topbar-h:    60px;
   --primary:    #0d6efd;
@@ -15,6 +18,8 @@
 }
 * { box-sizing: border-box; }
 body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
 .sidebar {
   position: fixed; top:0; left:0; width: var(--sidebar-w);
   height: 100vh; background: var(--sidebar-bg);
@@ -34,6 +39,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .sidebar-brand .brand-text { color:#fff; font-weight:700; font-size:15px; line-height:1.2; }
 .sidebar-brand .brand-text span { color: var(--info); font-size:10px; font-weight:400; display:block; }
+
 .sidebar-user {
   padding:14px 20px; border-bottom: 1px solid #2a3555;
   display:flex; align-items:center; gap:10px;
@@ -45,6 +51,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .sidebar-user .user-name  { color:#fff; font-size:13px; font-weight:600; }
 .sidebar-user .user-role  { color:var(--sidebar-txt); font-size:11px; }
+
 .sidebar-nav { flex:1; padding:10px 0; }
 .nav-section-label {
   color:#5a6785; font-size:10px; font-weight:700; text-transform:uppercase;
@@ -67,6 +74,9 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   color:#fff; font-size:10px; font-weight:700;
   padding:2px 6px; border-radius:10px; min-width:18px; text-align:center;
 }
+/* (sidebar-footer definido abajo) */
+
+/* ── Contenido principal ─────────────────────────────────────── */
 .main-wrap, .main-content {
   margin-left: var(--sidebar-w);
   min-height: 100vh;
@@ -96,6 +106,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   border-radius:50%; border:2px solid #fff;
 }
 .content-area { flex:1; padding:28px; }
+
+/* ── Secciones ───────────────────────────────────────────────── */
 .section { display:none; padding: 28px; }
 .section.active { display:block; }
 .section-header {
@@ -104,6 +116,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .section-title { font-size:20px; font-weight:700; color:#1e293b; margin:0; }
 .section-sub, .section-subtitle { font-size:13px; color:#64748b; margin-top:2px; }
+
+/* ── KPI Cards ───────────────────────────────────────────────── */
 .kpi-grid {
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -127,6 +141,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .kpi-icon.cyan   { background:#ecfeff; color:#0891b2; }
 .kpi-val  { font-size:26px; font-weight:800; color:#1e293b; line-height:1; }
 .kpi-label{ font-size:12px; color:#64748b; margin-top:2px; }
+
+/* ── Charts ──────────────────────────────────────────────────── */
 .charts-grid {
   display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-bottom:24px;
 }
@@ -137,6 +153,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .chart-card.full { grid-column:1/-1; }
 .chart-title { font-size:14px; font-weight:700; color:#1e293b; margin-bottom:14px; }
 .chart-box   { position:relative; height:220px; }
+
+/* ── Tablas ──────────────────────────────────────────────────── */
 .card {
   background:#fff; border-radius:12px;
   box-shadow: var(--card-shadow); overflow:hidden;
@@ -159,6 +177,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .table td { padding:12px 16px; border-bottom:1px solid #f1f5f9; vertical-align:middle; }
 .table tr:last-child td { border-bottom:none; }
 .table tr:hover td { background:#f8fafc; }
+
+/* ── Badges ──────────────────────────────────────────────────── */
 .badge-status {
   display:inline-block; padding:3px 10px; border-radius:20px;
   font-size:11px; font-weight:600; white-space:nowrap;
@@ -175,6 +195,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .badge-programada  { background:#dbeafe; color:#1e40af; }
 .badge-vigente     { background:#dcfce7; color:#166534; }
 .badge-rechazado   { background:#fee2e2; color:#991b1b; }
+
+/* ── Formularios ─────────────────────────────────────────────── */
 .form-label  { font-size:13px; font-weight:600; color:#374151; margin-bottom:4px; }
 .form-control, .form-select {
   border-radius:8px; border:1.5px solid #e2e8f0; font-size:14px;
@@ -184,6 +206,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   border-color: var(--primary); box-shadow:0 0 0 3px rgba(13,110,253,.15);
 }
 .form-group  { margin-bottom:16px; }
+
+/* ── Botones ─────────────────────────────────────────────────── */
 .btn {
   padding:8px 18px; border-radius:8px; font-size:13.5px;
   font-weight:600; border:none; cursor:pointer; transition:all .2s;
@@ -197,6 +221,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .btn-secondary { background:#e2e8f0; color:#475569; border:none; }
 .btn-sm        { padding:5px 12px; font-size:12px; }
 .btn:disabled  { opacity:.6; cursor:not-allowed; }
+
+/* Botones de acción principales (usados en secciones) */
 .btn-primary-action {
   background: var(--primary); color: #fff;
   border: none; border-radius: 8px; padding: 9px 20px;
@@ -205,6 +231,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   transition: background .2s;
 }
 .btn-primary-action:hover { background: var(--primary-dk); }
+
 .btn-danger-action {
   background: var(--danger); color: #fff;
   border: none; border-radius: 8px; padding: 9px 20px;
@@ -213,6 +240,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   transition: opacity .2s;
 }
 .btn-danger-action:hover { opacity: .88; }
+
 .btn-warning-action {
   background: var(--warning); color: #1a2035;
   border: none; border-radius: 8px; padding: 9px 20px;
@@ -221,6 +249,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   transition: opacity .2s;
 }
 .btn-warning-action:hover { opacity: .88; }
+
+/* Botones de acción en filas de tabla */
 .btn-action {
   width: 32px; height: 32px; border: none; border-radius: 6px;
   cursor: pointer; font-size: 13px;
@@ -235,6 +265,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .btn-action.danger:hover { background: #dc2626; color: #fff; }
 .btn-action.info   { background: #ecfdf5; color: #059669; }
 .btn-action.info:hover { background: #059669; color: #fff; }
+
 .btn-filter {
   background: var(--primary); color: #fff;
   border: none; border-radius: 8px; padding: 8px 18px;
@@ -243,6 +274,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   transition: .2s; white-space: nowrap;
 }
 .btn-filter:hover { background: var(--primary-dk); }
+
+/* ── Tabla de datos ───────────────────────────────────────────── */
 .table-container { overflow-x: auto; border-radius: 10px; border: 1px solid #e9ecef; }
 .data-table {
   width: 100%; border-collapse: collapse; font-size: 13.5px;
@@ -263,6 +296,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .data-table tr:hover td { background: #f8faff; }
 .actions-cell { white-space: nowrap; }
 .actions-cell .btn-action { margin-right: 3px; }
+
+/* ── Barra de filtros ────────────────────────────────────────── */
 .filters-bar {
   display: flex; align-items: center; gap: 10px;
   flex-wrap: wrap; margin-bottom: 16px;
@@ -283,6 +318,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   background: #fff; min-width: 150px; cursor: pointer;
 }
 .filter-select:focus { border-color: var(--primary); }
+
+/* ── Alertas / Toast ─────────────────────────────────────────── */
 .toast-container {
   position:fixed; bottom:20px; right:20px; z-index:9999;
   display:flex; flex-direction:column; gap:8px;
@@ -299,7 +336,10 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .toast-msg.info,    .toast-info    { border-left:4px solid var(--info);    }
 .toast-msg.warning, .toast-warning { border-left:4px solid var(--warning); }
 .toast-msg.show { opacity: 1; }
+
 @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
+
+/* ── Modal overlay ───────────────────────────────────────────── */
 .modal-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,.55);
@@ -311,6 +351,7 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .modal-overlay.active,
 .modal-overlay.show { display: flex; }
+
 .modal-box {
   background: #fff; border-radius: 14px;
   width: 100%; max-width: 620px;
@@ -319,10 +360,13 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   animation: fadeUp .22s ease;
 }
 .modal-box.modal-lg { max-width: 860px; }
+
 @keyframes fadeUp {
   from { transform: translateY(18px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
 }
+
+/* Header / Body / Footer — soporta ambas convenciones de clase */
 .modal-box-header, .modal-header {
   padding: 18px 24px;
   border-bottom: 1px solid #f1f5f9;
@@ -337,19 +381,26 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   padding: 0 4px; transition: color .15s;
 }
 .modal-close:hover { color: #1e293b; }
+
 .modal-box-body, .modal-body { padding: 22px 24px; }
+
 .modal-box-footer, .modal-footer {
   padding: 14px 24px;
   border-top: 1px solid #f1f5f9;
   display: flex; justify-content: flex-end; gap: 10px;
 }
+
+/* Botones dentro de modales */
 .btn-secondary {
   background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0;
   padding: 8px 18px; border-radius: 8px; font-size: 14px;
   font-weight: 500; cursor: pointer; transition: .2s;
 }
 .btn-secondary:hover { background: #e2e8f0; }
+
 .req { color: #ef4444; }
+
+/* ── Notificaciones panel ────────────────────────────────────── */
 .notif-list { display:flex; flex-direction:column; gap:12px; }
 .notif-item {
   background:#fff; border-radius:12px; padding:16px 20px;
@@ -371,6 +422,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .notif-icon.secondary{ background:#f1f5f9; color:#64748b; }
 .notif-title  { font-size:14px; font-weight:700; color:#1e293b; }
 .notif-text   { font-size:13px; color:#64748b; margin-top:2px; }
+
+/* ── Session warning ─────────────────────────────────────────── */
 .session-warning {
   position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
   background:#1e293b; color:#fff; border-radius:14px;
@@ -379,6 +432,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   border-left:4px solid var(--warning);
 }
 .session-warning.show { display:flex; }
+
+/* ── Filtros de auditoría ────────────────────────────────────── */
 .filters-row {
   background:#fff; border-radius:12px; padding:16px 20px;
   box-shadow: var(--card-shadow); margin-bottom:16px;
@@ -386,6 +441,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .filter-group { display:flex; flex-direction:column; gap:4px; min-width:160px; }
 .filter-group label { font-size:12px; font-weight:600; color:#64748b; }
+
+/* ── Paginación ──────────────────────────────────────────────── */
 .pagination { display:flex; gap:6px; justify-content:center; margin-top:16px; }
 .page-btn {
   padding:6px 12px; border-radius:8px; font-size:13px;
@@ -394,11 +451,15 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .page-btn.active { background:var(--primary); color:#fff; border-color:var(--primary); }
 .page-btn:hover:not(.active) { background:#f8fafc; }
+
+/* ── Empty state ─────────────────────────────────────────────── */
 .empty-state {
   text-align:center; padding:48px 24px; color:#94a3b8;
 }
 .empty-state i { font-size:48px; margin-bottom:12px; }
 .empty-state p { font-size:15px; font-weight:500; }
+
+/* ── Notification cards ──────────────────────────────────────── */
 .notif-list { display:flex; flex-direction:column; gap:.75rem; }
 .notif-card {
   display:flex; align-items:center; gap:1rem;
@@ -422,6 +483,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   padding:.35rem .65rem; color:#6c757d; cursor:pointer; transition:.2s;
 }
 .btn-notif-action:hover { background:#f8f9fa; border-color:#adb5bd; }
+
+/* ── Form card ───────────────────────────────────────────────── */
 .card-form {
   background:#fff; border-radius:10px; padding:1.5rem;
   box-shadow:var(--card-shadow); margin-bottom:1.5rem;
@@ -429,6 +492,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .card-form-title { font-size:1rem; font-weight:600; margin-bottom:1rem; color:#1a2035; }
 .subsection-title { font-size:1rem; font-weight:600; color:#1a2035; margin-bottom:.75rem; }
+
+/* ── Report tabs ─────────────────────────────────────────────── */
 .report-tabs { display:flex; gap:.5rem; flex-wrap:wrap; border-bottom:2px solid #e9ecef; padding-bottom:.5rem; }
 .report-tab {
   background:none; border:none; padding:.5rem 1rem;
@@ -437,6 +502,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 }
 .report-tab:hover { background:#f0f2f5; color:#1a2035; }
 .report-tab.active { background: var(--primary); color:#fff; }
+
+/* ── Alerts inside modals ────────────────────────────────────── */
 .alert-info-box {
   background:#e8f4fd; border:1px solid #bee3f8; border-radius:8px;
   padding:.85rem 1rem; color:#1a6fa8; font-size:.88rem; margin-bottom:1rem;
@@ -447,17 +514,25 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   padding:.85rem 1rem; color:#b91c1c; font-size:.88rem; margin-bottom:1rem;
   display:flex; gap:.6rem; align-items:flex-start;
 }
+
+/* ── Price modal ─────────────────────────────────────────────── */
 .precio-resumen { background:#f8f9fa; border-radius:8px; padding:.85rem 1rem; font-size:.9rem; }
 .precio-detail  { line-height:1.8; }
 .precio-label   { color:#6c757d; }
+
+/* ── Reasignar ───────────────────────────────────────────────── */
 .pacientes-list { max-height:220px; overflow-y:auto; border:1px solid #e9ecef; border-radius:8px; padding:.5rem; }
 .paciente-item {
   display:flex; align-items:center; padding:.5rem .75rem;
   border-bottom:1px solid #f3f4f6; font-size:.88rem;
 }
 .paciente-item:last-child { border-bottom:none; }
+
+/* ── Table row colors ────────────────────────────────────────── */
 .row-danger  td { background:#fff5f5; }
 .row-warning td { background:#fffdf0; }
+
+/* ── Sidebar footer ──────────────────────────────────────────── */
 .sidebar-footer {
   margin-top:auto; padding:14px 16px;
   border-top:1px solid rgba(255,255,255,.08);
@@ -486,6 +561,8 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
 .btn-logout:hover {
   background:#e74c3c; border-color:#e74c3c; color:#fff;
 }
+
+/* ── Topbar extras ───────────────────────────────────────────── */
 .btn-notif {
   position:relative; background:none; border:none;
   color:#6c757d; font-size:1.1rem; cursor:pointer; padding:.35rem;
@@ -495,8 +572,12 @@ body { margin:0; font-family:'Inter',sans-serif; background:#f0f2f5; }
   width:8px; height:8px; border-radius:50%; background: var(--danger);
 }
 .topbar-date { font-size:.82rem; color:#6c757d; white-space:nowrap; }
+
+/* ── Sidebar collapsed ───────────────────────────────────────── */
 .sidebar.collapsed { transform:translateX(-100%); }
 .main-content.expanded { margin-left:0; }
+
+/* ── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .charts-grid { grid-template-columns:1fr; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }

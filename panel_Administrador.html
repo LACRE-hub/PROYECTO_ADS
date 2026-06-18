@@ -1,9 +1,9 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MediCore HMS â€“ Panel Administrador</title>
+  <title>MediCore HMS – Panel Administrador</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
@@ -11,11 +11,15 @@
   <link href="css/panel_admin.css" rel="stylesheet"/>
 </head>
 <body>
+
+<!-- SESSION WARNING BAR -->
 <div id="sessionWarning" class="session-warning d-none">
   <i class="fas fa-clock"></i>
-  Tu sesiÃ³n expirarÃ¡ en <strong id="sessionCountdown">2:00</strong> minutos por inactividad.
-  <button onclick="pingSession()" class="btn btn-sm btn-light ms-3">Mantener sesiÃ³n</button>
+  Tu sesión expirará en <strong id="sessionCountdown">2:00</strong> minutos por inactividad.
+  <button onclick="pingSession()" class="btn btn-sm btn-light ms-3">Mantener sesión</button>
 </div>
+
+<!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sidebar-brand">
     <i class="fas fa-hospital-alt brand-icon"></i>
@@ -70,7 +74,7 @@
     <li class="nav-item">
       <a href="#" class="nav-link" data-section="auditoria">
         <i class="fas fa-shield-alt nav-icon"></i>
-        <span class="nav-label">BitÃ¡cora</span>
+        <span class="nav-label">Bitácora</span>
       </a>
     </li>
   </ul>
@@ -82,12 +86,15 @@
         <div class="user-role">Admin. Sistema</div>
       </div>
     </div>
-    <a href="php/logout.php" class="btn-logout" title="Cerrar sesiÃ³n">
+    <a href="php/logout.php" class="btn-logout" title="Cerrar sesión">
       <i class="fas fa-sign-out-alt"></i>
     </a>
   </div>
 </nav>
+
+<!-- MAIN CONTENT -->
 <main class="main-content" id="mainContent">
+  <!-- TOPBAR -->
   <header class="topbar">
     <button class="sidebar-toggle" id="sidebarToggle">
       <i class="fas fa-bars"></i>
@@ -101,55 +108,61 @@
       <span class="topbar-date" id="topbarDate"></span>
     </div>
   </header>
+
+  <!-- ═══════════════════════════════════════════ DASHBOARD ═══ -->
   <section class="section active" id="section-dashboard">
     <div class="section-header">
       <h2 class="section-title">Dashboard General</h2>
       <p class="section-subtitle">Resumen del sistema hospitalario en tiempo real</p>
     </div>
+
+    <!-- KPI CARDS -->
     <div class="kpi-grid" id="kpiGrid">
       <div class="kpi-card">
         <div class="kpi-icon blue"><i class="fas fa-users"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiEmpleados">â€“</div>
+          <div class="kpi-value" id="kpiEmpleados">–</div>
           <div class="kpi-label">Empleados activos</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon green"><i class="fas fa-procedures"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiPacientes">â€“</div>
+          <div class="kpi-value" id="kpiPacientes">–</div>
           <div class="kpi-label">Pacientes registrados</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon purple"><i class="fas fa-calendar-check"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiCitasHoy">â€“</div>
+          <div class="kpi-value" id="kpiCitasHoy">–</div>
           <div class="kpi-label">Citas hoy</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon orange"><i class="fas fa-file-invoice-dollar"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiPagosPend">â€“</div>
+          <div class="kpi-value" id="kpiPagosPend">–</div>
           <div class="kpi-label">Pagos pendientes</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon yellow"><i class="fas fa-tag"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiPreciosPend">â€“</div>
+          <div class="kpi-value" id="kpiPreciosPend">–</div>
           <div class="kpi-label">Precios sin validar</div>
         </div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon red"><i class="fas fa-exclamation-triangle"></i></div>
         <div class="kpi-info">
-          <div class="kpi-value" id="kpiStock">â€“</div>
-          <div class="kpi-label">Stock crÃ­tico</div>
+          <div class="kpi-value" id="kpiStock">–</div>
+          <div class="kpi-label">Stock crítico</div>
         </div>
       </div>
     </div>
+
+    <!-- CHARTS ROW 1 -->
     <div class="charts-grid">
       <div class="chart-card wide">
         <div class="chart-header">
@@ -164,6 +177,8 @@
         <canvas id="chartCitas" height="180"></canvas>
       </div>
     </div>
+
+    <!-- CHARTS ROW 2 -->
     <div class="charts-grid mt-4">
       <div class="chart-card">
         <div class="chart-header">
@@ -179,6 +194,8 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ NOTIFICACIONES ═══ -->
   <section class="section" id="section-notificaciones">
     <div class="section-header">
       <h2 class="section-title">Centro de Notificaciones</h2>
@@ -188,19 +205,23 @@
       <div class="empty-state"><i class="fas fa-check-circle"></i><p>Sin notificaciones pendientes</p></div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ EMPLEADOS ═══ -->
   <section class="section" id="section-empleados">
     <div class="section-header d-flex justify-content-between align-items-start">
       <div>
-        <h2 class="section-title">GestiÃ³n de Empleados</h2>
-        <p class="section-subtitle">CRUD completo, bajas con perÃ­odo de gracia y reasignaciÃ³n</p>
+        <h2 class="section-title">Gestión de Empleados</h2>
+        <p class="section-subtitle">CRUD completo, bajas con período de gracia y reasignación</p>
       </div>
       <button class="btn-primary-action" id="btnNuevoEmpleado">
         <i class="fas fa-user-plus me-2"></i>Nuevo Empleado
       </button>
     </div>
+
+    <!-- FILTERS -->
     <div class="filters-bar">
       <div class="filter-group">
-        <input type="text" id="filterEmpNombre" class="filter-input" placeholder="Buscar por nombreâ€¦"/>
+        <input type="text" id="filterEmpNombre" class="filter-input" placeholder="Buscar por nombre…"/>
       </div>
       <div class="filter-group">
         <select id="filterEmpRol" class="filter-select">
@@ -217,11 +238,12 @@
       </div>
       <button class="btn-filter" id="btnFilterEmp"><i class="fas fa-search me-1"></i>Buscar</button>
     </div>
+
     <div class="table-container">
       <table class="data-table">
         <thead>
           <tr>
-            <th>NÃºm. Empleado</th>
+            <th>Núm. Empleado</th>
             <th>Nombre completo</th>
             <th>Rol / Tipo</th>
             <th>Consultorio</th>
@@ -234,10 +256,12 @@
       </table>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ PRECIOS ═══ -->
   <section class="section" id="section-precios">
     <div class="section-header">
-      <h2 class="section-title">ValidaciÃ³n de Precios</h2>
-      <p class="section-subtitle">AprobaciÃ³n o rechazo de precios propuestos por Farmacia</p>
+      <h2 class="section-title">Validación de Precios</h2>
+      <p class="section-subtitle">Aprobación o rechazo de precios propuestos por Farmacia</p>
     </div>
     <div class="table-container">
       <table class="data-table">
@@ -245,7 +269,7 @@
           <tr>
             <th>Medicamento</th>
             <th>Lote / Caducidad</th>
-            <th>FarmacÃ©utico</th>
+            <th>Farmacéutico</th>
             <th>Precio actual</th>
             <th>Precio propuesto</th>
             <th>Estatus</th>
@@ -256,17 +280,20 @@
       </table>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ PAGOS ═══ -->
   <section class="section" id="section-pagos">
     <div class="section-header d-flex justify-content-between align-items-start">
       <div>
-        <h2 class="section-title">GestiÃ³n de Pagos</h2>
-        <p class="section-subtitle">AutorizaciÃ³n de modificaciones y cancelaciÃ³n de emergencia</p>
+        <h2 class="section-title">Gestión de Pagos</h2>
+        <p class="section-subtitle">Autorización de modificaciones y cancelación de emergencia</p>
       </div>
       <button class="btn-danger-action" id="btnCancelEmergencia">
-        <i class="fas fa-ban me-2"></i>CancelaciÃ³n de Emergencia
+        <i class="fas fa-ban me-2"></i>Cancelación de Emergencia
       </button>
     </div>
-    <h5 class="subsection-title">Modificaciones Pendientes de AutorizaciÃ³n</h5>
+
+    <h5 class="subsection-title">Modificaciones Pendientes de Autorización</h5>
     <div class="table-container">
       <table class="data-table">
         <thead>
@@ -285,11 +312,14 @@
       </table>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ MANTENIMIENTO ═══ -->
   <section class="section" id="section-mantenimiento">
     <div class="section-header">
       <h2 class="section-title">Programar Mantenimiento</h2>
-      <p class="section-subtitle">DuraciÃ³n mÃ¡xima 15 minutos Â· Se alerta automÃ¡ticamente a 5 Ã¡reas</p>
+      <p class="section-subtitle">Duración máxima 15 minutos · Se alerta automáticamente a 5 áreas</p>
     </div>
+
     <div class="card-form">
       <h5 class="card-form-title"><i class="fas fa-plus-circle me-2"></i>Nuevo Mantenimiento</h5>
       <div class="row g-3">
@@ -298,21 +328,22 @@
           <input type="datetime-local" id="mantFechaHora" class="form-control"/>
         </div>
         <div class="col-md-2">
-          <label class="form-label">DuraciÃ³n (min) <small class="text-danger">mÃ¡x 15</small></label>
-          <input type="number" id="mantDuracion" class="form-control" min="1" max="15" placeholder="1â€“15"/>
+          <label class="form-label">Duración (min) <small class="text-danger">máx 15</small></label>
+          <input type="number" id="mantDuracion" class="form-control" min="1" max="15" placeholder="1–15"/>
         </div>
         <div class="col-md-6">
-          <label class="form-label">DescripciÃ³n del mantenimiento</label>
-          <input type="text" id="mantDescripcion" class="form-control" placeholder="Describe el mantenimientoâ€¦"/>
+          <label class="form-label">Descripción del mantenimiento</label>
+          <input type="text" id="mantDescripcion" class="form-control" placeholder="Describe el mantenimiento…"/>
         </div>
         <div class="col-12">
           <button class="btn-primary-action" id="btnCrearMant">
             <i class="fas fa-calendar-plus me-2"></i>Programar Mantenimiento
           </button>
-          <span class="text-muted ms-3 small"><i class="fas fa-info-circle me-1"></i>Se enviarÃ¡ alerta a: Urgencias, HospitalizaciÃ³n, MÃ©dicos, EnfermerÃ­a, Farmacia</span>
+          <span class="text-muted ms-3 small"><i class="fas fa-info-circle me-1"></i>Se enviará alerta a: Urgencias, Hospitalización, Médicos, Enfermería, Farmacia</span>
         </div>
       </div>
     </div>
+
     <h5 class="subsection-title mt-4">Historial de Mantenimientos</h5>
     <div class="table-container">
       <table class="data-table">
@@ -320,8 +351,8 @@
           <tr>
             <th>ID</th>
             <th>Fecha y hora</th>
-            <th>DuraciÃ³n</th>
-            <th>DescripciÃ³n</th>
+            <th>Duración</th>
+            <th>Descripción</th>
             <th>Estatus</th>
             <th>Alertas</th>
             <th>Acciones</th>
@@ -331,11 +362,15 @@
       </table>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ REPORTES ═══ -->
   <section class="section" id="section-reportes">
     <div class="section-header">
       <h2 class="section-title">Reportes del Sistema</h2>
-      <p class="section-subtitle">AnÃ¡lisis financiero, clÃ­nico, laboratorio, citas, farmacia e inventario</p>
+      <p class="section-subtitle">Análisis financiero, clínico, laboratorio, citas, farmacia e inventario</p>
     </div>
+
+    <!-- MES SELECTOR -->
     <div class="filters-bar mb-4">
       <div class="filter-group">
         <label class="filter-label">Mes de reporte:</label>
@@ -343,23 +378,29 @@
       </div>
       <button class="btn-filter" id="btnCargarReporte"><i class="fas fa-sync me-1"></i>Actualizar</button>
     </div>
+
+    <!-- TABS -->
     <div class="report-tabs">
       <button class="report-tab active" data-reporte="financiero"><i class="fas fa-dollar-sign me-1"></i>Financiero</button>
-      <button class="report-tab" data-reporte="clinico"><i class="fas fa-stethoscope me-1"></i>ClÃ­nico</button>
+      <button class="report-tab" data-reporte="clinico"><i class="fas fa-stethoscope me-1"></i>Clínico</button>
       <button class="report-tab" data-reporte="laboratorio"><i class="fas fa-flask me-1"></i>Laboratorio</button>
       <button class="report-tab" data-reporte="citas"><i class="fas fa-calendar-alt me-1"></i>Citas</button>
       <button class="report-tab" data-reporte="farmacia"><i class="fas fa-pills me-1"></i>Farmacia</button>
       <button class="report-tab" data-reporte="inventario"><i class="fas fa-boxes me-1"></i>Inventario</button>
     </div>
+
     <div id="reporteContenido" class="mt-4">
       <div class="empty-state"><i class="fas fa-chart-bar"></i><p>Selecciona un tipo de reporte</p></div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════ AUDITORÍA ═══ -->
   <section class="section" id="section-auditoria">
     <div class="section-header">
-      <h2 class="section-title">BitÃ¡cora de AuditorÃ­a</h2>
+      <h2 class="section-title">Bitácora de Auditoría</h2>
       <p class="section-subtitle">Registro completo de acciones del sistema (RF-24)</p>
     </div>
+
     <div class="filters-bar flex-wrap gap-2">
       <div class="filter-group">
         <label class="filter-label">Desde:</label>
@@ -370,13 +411,14 @@
         <input type="date" id="auditHasta" class="filter-input"/>
       </div>
       <div class="filter-group">
-        <select id="auditModulo" class="filter-select"><option value="">Todos los mÃ³dulos</option></select>
+        <select id="auditModulo" class="filter-select"><option value="">Todos los módulos</option></select>
       </div>
       <div class="filter-group">
-        <input type="text" id="auditAccion" class="filter-input" placeholder="Filtrar acciÃ³nâ€¦"/>
+        <input type="text" id="auditAccion" class="filter-input" placeholder="Filtrar acción…"/>
       </div>
       <button class="btn-filter" id="btnBuscarAudit"><i class="fas fa-search me-1"></i>Buscar</button>
     </div>
+
     <div class="table-container">
       <table class="data-table">
         <thead>
@@ -384,8 +426,8 @@
             <th>Fecha / Hora</th>
             <th>Usuario</th>
             <th>Rol</th>
-            <th>MÃ³dulo</th>
-            <th>AcciÃ³n</th>
+            <th>Módulo</th>
+            <th>Acción</th>
             <th>IP</th>
             <th>Detalle</th>
           </tr>
@@ -395,7 +437,13 @@
     </div>
     <div class="pagination-bar" id="auditPagination"></div>
   </section>
-</main><div class="modal-overlay" id="modalEmpleado">
+
+</main><!-- /main-content -->
+
+<!-- ══════════════════════ MODALS ══════════════════════ -->
+
+<!-- MODAL: EMPLEADO (crear / editar) -->
+<div class="modal-overlay" id="modalEmpleado">
   <div class="modal-box modal-lg">
     <div class="modal-box-header">
       <h4 class="modal-box-title" id="modalEmpTitle">Nuevo Empleado</h4>
@@ -405,8 +453,8 @@
       <input type="hidden" id="empId"/>
       <div class="row g-3">
         <div class="col-md-4">
-          <label class="form-label">NÃºmero de empleado <span class="req">*</span></label>
-          <input type="text" id="empNumero" class="form-control" maxlength="10" placeholder="10 dÃ­gitos"/>
+          <label class="form-label">Número de empleado <span class="req">*</span></label>
+          <input type="text" id="empNumero" class="form-control" maxlength="10" placeholder="10 dígitos"/>
         </div>
         <div class="col-md-4">
           <label class="form-label">Nombre <span class="req">*</span></label>
@@ -426,7 +474,7 @@
         </div>
         <div class="col-md-4">
           <label class="form-label">Tipo / Especialidad</label>
-          <input type="text" id="empTipo" class="form-control" placeholder="Ej: CirugÃ­a General"/>
+          <input type="text" id="empTipo" class="form-control" placeholder="Ej: Cirugía General"/>
         </div>
         <div class="col-md-4">
           <label class="form-label">Consultorio</label>
@@ -444,15 +492,15 @@
           </select>
         </div>
         <div class="col-md-4">
-          <label class="form-label">Ãrea asignada</label>
-          <input type="text" id="empArea" class="form-control" placeholder="Ej: Urgencias, Farmaciaâ€¦"/>
+          <label class="form-label">Área asignada</label>
+          <input type="text" id="empArea" class="form-control" placeholder="Ej: Urgencias, Farmacia…"/>
         </div>
         <div class="col-md-6" id="empPasswordGroup">
-          <label class="form-label">ContraseÃ±a <span class="req" id="empPasswordReq">*</span> <small class="text-muted">(mÃ­n. 8 caracteres)</small></label>
+          <label class="form-label">Contraseña <span class="req" id="empPasswordReq">*</span> <small class="text-muted">(mín. 8 caracteres)</small></label>
           <input type="password" id="empPassword" class="form-control"/>
         </div>
         <div class="col-md-6" id="empPasswordConfGroup">
-          <label class="form-label">Confirmar contraseÃ±a</label>
+          <label class="form-label">Confirmar contraseña</label>
           <input type="password" id="empPasswordConf" class="form-control"/>
         </div>
       </div>
@@ -465,6 +513,8 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL: INICIAR BAJA -->
 <div class="modal-overlay" id="modalBaja">
   <div class="modal-box">
     <div class="modal-box-header">
@@ -474,21 +524,23 @@
     <div class="modal-box-body">
       <div class="alert-info-box">
         <i class="fas fa-info-circle"></i>
-        Se iniciarÃ¡ un perÃ­odo de gracia de <strong>30 dÃ­as</strong>. Durante este tiempo el empleado seguirÃ¡ activo y sus pacientes deberÃ¡n ser reasignados antes de la baja definitiva.
+        Se iniciará un período de gracia de <strong>30 días</strong>. Durante este tiempo el empleado seguirá activo y sus pacientes deberán ser reasignados antes de la baja definitiva.
       </div>
       <input type="hidden" id="bajaEmpId"/>
       <p id="bajaEmpNombre" class="fw-semibold mb-3"></p>
       <label class="form-label">Motivo de baja <span class="req">*</span></label>
-      <textarea id="bajaMotivo" class="form-control" rows="3" placeholder="Describe el motivo de la bajaâ€¦"></textarea>
+      <textarea id="bajaMotivo" class="form-control" rows="3" placeholder="Describe el motivo de la baja…"></textarea>
     </div>
     <div class="modal-box-footer">
       <button class="btn-secondary" data-close="modalBaja">Cancelar</button>
       <button class="btn-warning-action" id="btnConfirmarBaja">
-        <i class="fas fa-user-clock me-1"></i>Iniciar perÃ­odo de gracia
+        <i class="fas fa-user-clock me-1"></i>Iniciar período de gracia
       </button>
     </div>
   </div>
 </div>
+
+<!-- MODAL: REASIGNAR PACIENTES -->
 <div class="modal-overlay" id="modalReasignar">
   <div class="modal-box modal-lg">
     <div class="modal-box-header">
@@ -497,7 +549,7 @@
     </div>
     <div class="modal-box-body">
       <input type="hidden" id="reasEmpId"/>
-      <p class="mb-3">Selecciona el mÃ©dico/empleado receptor para todos los pacientes pendientes:</p>
+      <p class="mb-3">Selecciona el médico/empleado receptor para todos los pacientes pendientes:</p>
       <div class="row g-3 mb-4">
         <div class="col-md-6">
           <label class="form-label">Empleado receptor <span class="req">*</span></label>
@@ -510,11 +562,13 @@
     <div class="modal-box-footer">
       <button class="btn-secondary" data-close="modalReasignar">Cancelar</button>
       <button class="btn-primary-action" id="btnConfirmarReasig">
-        <i class="fas fa-exchange-alt me-1"></i>Confirmar reasignaciÃ³n
+        <i class="fas fa-exchange-alt me-1"></i>Confirmar reasignación
       </button>
     </div>
   </div>
 </div>
+
+<!-- MODAL: PRECIO -->
 <div class="modal-overlay" id="modalPrecio">
   <div class="modal-box">
     <div class="modal-box-header">
@@ -525,8 +579,8 @@
       <input type="hidden" id="precioLoteId"/>
       <input type="hidden" id="precioAccion"/>
       <div id="precioResumen" class="precio-resumen mb-3"></div>
-      <label class="form-label">Motivo / ObservaciÃ³n</label>
-      <textarea id="precioMotivo" class="form-control" rows="3" placeholder="Opcional para aprobaciÃ³n, requerido para rechazoâ€¦"></textarea>
+      <label class="form-label">Motivo / Observación</label>
+      <textarea id="precioMotivo" class="form-control" rows="3" placeholder="Opcional para aprobación, requerido para rechazo…"></textarea>
     </div>
     <div class="modal-box-footer">
       <button class="btn-secondary" data-close="modalPrecio">Cancelar</button>
@@ -534,16 +588,18 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL: CANCELACIÓN EMERGENCIA -->
 <div class="modal-overlay" id="modalCancelacion">
   <div class="modal-box">
     <div class="modal-box-header">
-      <h4 class="modal-box-title"><i class="fas fa-exclamation-triangle text-danger me-2"></i>CancelaciÃ³n de Emergencia</h4>
+      <h4 class="modal-box-title"><i class="fas fa-exclamation-triangle text-danger me-2"></i>Cancelación de Emergencia</h4>
       <button class="modal-close" data-close="modalCancelacion">&times;</button>
     </div>
     <div class="modal-box-body">
       <div class="alert-danger-box mb-3">
         <i class="fas fa-exclamation-circle"></i>
-        Esta acciÃ³n cancela un pago de forma inmediata. Requiere verificaciÃ³n de identidad.
+        Esta acción cancela un pago de forma inmediata. Requiere verificación de identidad.
       </div>
       <div class="row g-3">
         <div class="col-12">
@@ -551,12 +607,12 @@
           <input type="number" id="cancelPagoId" class="form-control" placeholder="ID del pago"/>
         </div>
         <div class="col-12">
-          <label class="form-label">Tu contraseÃ±a de administrador <span class="req">*</span></label>
-          <input type="password" id="cancelClave" class="form-control" placeholder="VerificaciÃ³n de identidad"/>
+          <label class="form-label">Tu contraseña de administrador <span class="req">*</span></label>
+          <input type="password" id="cancelClave" class="form-control" placeholder="Verificación de identidad"/>
         </div>
         <div class="col-12">
-          <label class="form-label">Motivo de cancelaciÃ³n <span class="req">*</span></label>
-          <textarea id="cancelMotivo" class="form-control" rows="3" placeholder="Describe el motivoâ€¦"></textarea>
+          <label class="form-label">Motivo de cancelación <span class="req">*</span></label>
+          <textarea id="cancelMotivo" class="form-control" rows="3" placeholder="Describe el motivo…"></textarea>
         </div>
       </div>
     </div>
@@ -568,7 +624,10 @@
     </div>
   </div>
 </div>
+
+<!-- TOAST CONTAINER -->
 <div id="toastContainer" class="toast-container"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/panel_admin.js"></script>
 </body>

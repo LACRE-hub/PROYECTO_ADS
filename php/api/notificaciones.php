@@ -1,12 +1,16 @@
-﻿<?php
+<?php
 session_start();
 header('Content-Type: application/json');
 require_once dirname(__DIR__) . '/middleware/auth_check.php';
 require_once dirname(__DIR__) . '/db.php';
+
 $usuario = requireAdmin();
 $pdo     = getDB();
+
 try {
     $notifs = [];
+
+    // Precios pendientes de validación
     $precios = (int)$pdo->query(
         "SELECT COUNT(*) FROM LOTE_MEDICAMENTO WHERE estatus_precio = 'Pendiente'"
     )->fetchColumn();
@@ -15,11 +19,13 @@ try {
             'tipo'    => 'precio',
             'icono'   => 'fa-tag',
             'color'   => 'warning',
-            'titulo'  => 'Precios pendientes de validaciÃ³n',
-            'mensaje' => "$precios lote(s) esperan tu aprobaciÃ³n de precio.",
+            'titulo'  => 'Precios pendientes de validación',
+            'mensaje' => "$precios lote(s) esperan tu aprobación de precio.",
             'seccion' => 'precios',
         ];
     }
+
+    // Modificaciones de pago pendientes
     $mods = (int)$pdo->query(
         "SELECT COUNT(*) FROM MODIFICACION_PAGO WHERE estatus = 'Pendiente'"
     )->fetchColumn();
@@ -29,10 +35,12 @@ try {
             'icono'   => 'fa-money-bill-wave',
             'color'   => 'danger',
             'titulo'  => 'Modificaciones de pago pendientes',
-            'mensaje' => "$mods solicitud(es) de modificaciÃ³n de pago requieren autorizaciÃ³n.",
+            'mensaje' => "$mods solicitud(es) de modificación de pago requieren autorización.",
             'seccion' => 'pagos',
         ];
     }
+
+    // Stock crítico
     $stock = (int)$pdo->query(
         "SELECT COUNT(*) FROM INSUMO WHERE stock_actual <= stock_minimo"
     )->fetchColumn();
@@ -41,11 +49,13 @@ try {
             'tipo'    => 'stock',
             'icono'   => 'fa-boxes',
             'color'   => 'warning',
-            'titulo'  => 'Stock crÃ­tico de insumos',
-            'mensaje' => "$stock insumo(s) estÃ¡n por debajo del stock mÃ­nimo.",
+            'titulo'  => 'Stock crítico de insumos',
+            'mensaje' => "$stock insumo(s) están por debajo del stock mínimo.",
             'seccion' => 'reportes',
         ];
     }
+
+    // Medicamentos próximos a caducar (RN-17: alerta a ≤ 30 días)
     $caduca = (int)$pdo->query(
         "SELECT COUNT(*) FROM LOTE_MEDICAMENTO
          WHERE fecha_caducidad <= DATE_ADD(CURDATE(), INTERVAL 30 DAY)
@@ -56,11 +66,13 @@ try {
             'tipo'    => 'caducidad',
             'icono'   => 'fa-exclamation-triangle',
             'color'   => 'danger',
-            'titulo'  => 'Medicamentos prÃ³ximos a caducar',
-            'mensaje' => "$caduca lote(s) caducan en menos de 30 dÃ­as.",
+            'titulo'  => 'Medicamentos próximos a caducar',
+            'mensaje' => "$caduca lote(s) caducan en menos de 30 días.",
             'seccion' => 'reportes',
         ];
     }
+
+    // Mantenimiento próximo (< 48 horas)
     $mant = $pdo->query(
         "SELECT id_mantenimiento, fecha_hora_inicio, duracion_minutos
          FROM MANTENIMIENTO
@@ -73,11 +85,13 @@ try {
             'tipo'    => 'mantenimiento',
             'icono'   => 'fa-tools',
             'color'   => 'info',
-            'titulo'  => 'Mantenimiento programado prÃ³ximo',
+            'titulo'  => 'Mantenimiento programado próximo',
             'mensaje' => 'Mantenimiento en ' . $mant['fecha_hora_inicio'] . ' (' . $mant['duracion_minutos'] . ' min).',
             'seccion' => 'mantenimiento',
         ];
     }
+
+    // Empleados próximos a baja definitiva (período de gracia termina < 3 días)
     $bajasProximas = $pdo->query(
         "SELECT COUNT(*) FROM EMPLEADO
          WHERE estatus = 'Por dar de baja'
@@ -88,15 +102,17 @@ try {
             'tipo'    => 'baja',
             'icono'   => 'fa-user-minus',
             'color'   => 'secondary',
-            'titulo'  => 'Bajas prÃ³ximas a procesarse',
-            'mensaje' => "$bajasProximas empleado(s) completarÃ¡n su perÃ­odo de gracia en los prÃ³ximos 3 dÃ­as.",
+            'titulo'  => 'Bajas próximas a procesarse',
+            'mensaje' => "$bajasProximas empleado(s) completarán su período de gracia en los próximos 3 días.",
             'seccion' => 'empleados',
         ];
     }
+
     echo json_encode([
         'total'         => count($notifs),
         'notificaciones'=> $notifs,
     ]);
+
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Error al cargar notificaciones']);

@@ -1,4 +1,6 @@
-﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* MediCore HMS – Panel Patient */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 :root {
   --primary:    #2563eb;
   --primary-lt: #eff6ff;
@@ -12,6 +14,7 @@
   --text:       #111827;
   --text-sm:    #6b7280;
 }
+
 body {
   font-family: 'Inter', system-ui, sans-serif;
   background: var(--bg);
@@ -20,6 +23,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+/* ── SESSION WARNING ── */
 .session-warning {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -31,6 +36,8 @@ body {
   font-weight: 500;
   z-index: 9999;
 }
+
+/* ── HEADER ── */
 .patient-header {
   background: var(--primary);
   color: #fff;
@@ -73,6 +80,8 @@ body {
   transition: background .2s;
 }
 .btn-logout:hover { background: rgba(255,255,255,.25); color: #fff; }
+
+/* ── MAIN ── */
 .patient-main {
   flex: 1;
   max-width: 1100px;
@@ -80,6 +89,8 @@ body {
   padding: 0 1.5rem;
   width: 100%;
 }
+
+/* ── PATIENT INFO CARD ── */
 .patient-info-card {
   background: var(--card);
   border-radius: 12px;
@@ -116,6 +127,8 @@ body {
 }
 .info-name { font-size: 1.25rem; font-weight: 700; }
 .info-expediente { font-size: .85rem; color: var(--muted); }
+
+/* ── SECTION ── */
 .patient-section {
   background: var(--card);
   border-radius: 12px;
@@ -141,6 +154,8 @@ body {
   font-size: .78rem;
   font-weight: 600;
 }
+
+/* ── CITA CARDS ── */
 .cita-loading { text-align: center; padding: 1.5rem; color: var(--muted); }
 .cita-card {
   border: 1px solid var(--border);
@@ -156,6 +171,7 @@ body {
 .cita-card:hover { border-color: var(--primary); }
 .cita-card.proxima { border-left: 3px solid var(--primary); }
 .cita-card.historial { border-left: 3px solid var(--muted); }
+
 .cita-fecha-box {
   background: var(--primary-lt);
   color: var(--primary);
@@ -167,12 +183,16 @@ body {
 .cita-fecha-day { font-size: 1.4rem; font-weight: 700; line-height: 1; }
 .cita-fecha-month { font-size: .7rem; font-weight: 600; text-transform: uppercase; }
 .cita-fecha-time { font-size: .72rem; color: var(--muted); margin-top: .2rem; }
+
 .cita-body { display: flex; flex-direction: column; gap: .25rem; }
 .cita-medico { font-weight: 600; font-size: .95rem; }
 .cita-tipo { font-size: .8rem; color: var(--muted); }
 .cita-motivo { font-size: .85rem; color: var(--text); margin-top: .25rem; }
 .cita-consultorio { font-size: .78rem; color: var(--muted); }
+
 .cita-badge { align-self: center; }
+
+/* STATUS BADGES */
 .badge-status {
   display: inline-block;
   padding: .25rem .65rem;
@@ -185,6 +205,8 @@ body {
 .badge-cancelada   { background:#fef2f2; color:#dc2626; }
 .badge-en-proceso  { background:#fffbeb; color:#d97706; }
 .badge-default     { background:#f3f4f6; color:#6b7280; }
+
+/* HISTORIAL DIAGNOSTIC */
 .cita-diagnostico {
   font-size: .82rem;
   color: var(--text-sm);
@@ -193,12 +215,15 @@ body {
   padding: .35rem .6rem;
   margin-top: .3rem;
 }
+
 .empty-state {
   text-align: center;
   padding: 2.5rem 1rem;
   color: var(--muted);
 }
 .empty-state i { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
+
+/* ── FOOTER ── */
 .patient-footer {
   text-align: center;
   padding: 1rem;
@@ -207,6 +232,7 @@ body {
   border-top: 1px solid var(--border);
   background: var(--card);
 }
+
 @media (max-width: 600px) {
   .patient-main { padding: 0 .75rem; margin: 1rem auto; }
   .patient-info-card { padding: 1rem; }
